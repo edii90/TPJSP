@@ -16,6 +16,7 @@ public class Compras {
     private Date fecha;
     private float total;
     private Hashtable lista;
+    private int estado;
 
     public int getId() {
         return id;
@@ -64,11 +65,18 @@ public class Compras {
     public void setLista(Hashtable lista) {
         this.lista = lista;
     }
+    public int getEstado() {
+        return estado;
+    }    
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
     
-    public Compras(int idCompra,Usuarios user, Date fech){
+    public Compras(int idCompra,Usuarios user, Date fech,int est){
         id = idCompra;
         usr = user;
         fecha = fech;
+        estado = est;
     }
     
     public Compras(Usuarios User, Hashtable Lista){
