@@ -42,8 +42,8 @@ TRIGGER `tpjspferreteria`.`bajarstock`
 BEFORE UPDATE ON `tpjspferreteria`.`compras`
 FOR EACH ROW
 BEGIN
-	if estado = 3 then
-		call bajarstock(idCompras);
+	if NEW.estado = 3 then
+		call bajarstock(NEW.idCompras);
 	end if;
   END
 $$
@@ -61,13 +61,21 @@ CREATE TABLE `prodxcomp` (
   CONSTRAINT `idProd` FOREIGN KEY (`idProd`) REFERENCES `productos` (`idProductos`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=latin1$$
 
+CREATE TABLE `piqueos` (
+  `idpiqueo` int(11) NOT NULL AUTO_INCREMENT,
+  `idProducto` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `estado` int(1) DEFAULT '1',
+  PRIMARY KEY (`idpiqueo`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1$$
 
 CREATE PROCEDURE bajarstock (in idComp INT)
 begin
 update productos p 
 inner join prodxcomp l
-on p.idProductos = l.idprod and l.idCompra = idComp
+on p.idProductos = l.idProd and l.idCompra = idComp
 set p.stock = p.stock-l.cantidad;
+insert into piqueos(idProducto,cantidad)select idProd,cantidad from prodxcomp where idCompra = idComp;
 end$$
 
 start transaction;$$

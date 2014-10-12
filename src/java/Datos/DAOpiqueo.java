@@ -27,7 +27,7 @@ public class DAOpiqueo extends coneccionBD {
             super.conectar();
             Hashtable lista = new Hashtable();
 
-            String sql = "SELECT l.idProd as id,p.nombre as nombre,l.cantidad as cantidad FROM prodxcomp l inner join productos p on l.idProd = p.idProductos inner join compras c on l.idCompra = c.idCompras where c.estado = 3 group by l.idProd;";
+            String sql = "SELECT l.idProd as id,p.nombre,l.cantidad FROM prodxcomp l inner join productos p on l.idProd = p.idProductos inner join compras c on l.idCompra = c.idCompras where c.estado = 3 group by l.idProd;";
             PreparedStatement ps = Sentencia(sql);
             ResultSet rows = ConsultaConResultado(ps);
             Piqueos aux;
