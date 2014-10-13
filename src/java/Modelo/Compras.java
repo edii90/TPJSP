@@ -16,7 +16,7 @@ public class Compras {
     private Date fecha;
     private float total;
     private Hashtable lista;
-    private int estado;
+    private String estado;
 
     public int getId() {
         return id;
@@ -65,10 +65,10 @@ public class Compras {
     public void setLista(Hashtable lista) {
         this.lista = lista;
     }
-    public int getEstado() {
+    public String getEstado() {
         return estado;
     }    
-    public void setEstado(int estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
     
@@ -76,7 +76,12 @@ public class Compras {
         id = idCompra;
         usr = user;
         fecha = fech;
-        estado = est;
+        if(est == 1)
+            estado = "Pendiente";
+        if(est == 2)
+            estado = "Rechazada";
+        if(est == 3)
+            estado = "Aprobada";
     }
     
     public Compras(Usuarios User, Hashtable Lista){

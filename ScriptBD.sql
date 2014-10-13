@@ -62,20 +62,34 @@ CREATE TABLE `prodxcomp` (
 ) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=latin1$$
 
 CREATE TABLE `piqueos` (
-  `idpiqueo` int(11) NOT NULL AUTO_INCREMENT,
-  `idProducto` int(11) NOT NULL,
-  `cantidad` int(11) NOT NULL,
+  `idpiqueo` int(11) NOT NULL,
+  `idCompras` int(11) NOT NULL,
   `estado` int(1) DEFAULT '1',
-  PRIMARY KEY (`idpiqueo`)
+  `fecha` datetime DEFAULT NULL,
+  PRIMARY KEY (`idpiqueo`,`idCompras`),
+  KEY `idCompras_idx` (`idCompras`),
+  CONSTRAINT `idCompras` FOREIGN KEY (`idCompras`) REFERENCES `compras` (`idCompras`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1$$
 
 CREATE PROCEDURE bajarstock (in idComp INT)
 begin
+declare est int;
+declare maxid int;
 update productos p 
 inner join prodxcomp l
 on p.idProductos = l.idProd and l.idCompra = idComp
 set p.stock = p.stock-l.cantidad;
-insert into piqueos(idProducto,cantidad)select idProd,cantidad from prodxcomp where idCompra = idComp;
+select max(idpiqueo) into maxid from piqueos;
+select estado into est from piqueos where idpiqueo = maxid limit 1;
+if est = null then	-- si el estado es null pque no hay crea el primer piqueo
+	insert into piqueos(idpiqueo,idCompras,estado) VALUES (1,idComp,1); 
+end if;
+if est = 1 then	-- si el estado del ultimo piqueo es 1 significa que no esta procesado y lo agrega
+	insert into piqueos(idpiqueo,idCompras,estado) VALUES (maxid,idComp,1);
+end if;
+if est != 1 then	-- si el estado del ultimo piqueo es distinto de 1 significa que ya esta entregado y crea un piqueo nuevo
+	insert into piqueos(idpiqueo,idCompras,estado) VALUES (maxid+1,idComp,1);
+end if;
 end$$
 
 start transaction;$$
