@@ -8,6 +8,7 @@ CREATE TABLE `productos` (
   `nombre` varchar(45) NOT NULL,
   `precio` decimal(10,0) DEFAULT NULL,
   `stock` int(11) unsigned NOT NULL,
+  `imagen` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`idProductos`)
 ) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=latin1$$
 

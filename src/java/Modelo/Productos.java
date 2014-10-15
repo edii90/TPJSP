@@ -11,6 +11,7 @@ public class Productos {
     private String nombre;
     private float precio;
     private int stock;
+    private String img;
 
     public int getId() {
         return id;
@@ -33,18 +34,25 @@ public class Productos {
     public void setStock(int stock) {
         this.stock = stock;
     }
+    public String getImg() {
+        return img;
+    }
+    public void setImg(String img) {
+        this.img = img;
+    }
     
     public Productos()
     {
         
     }
     
-    public Productos(int Id, String Nombre,float Precio,int Stock)
+    public Productos(int Id, String Nombre,float Precio,int Stock,String imagen)
     {
         id = Id;
         nombre = Nombre;
         precio = Precio;
         stock = Stock;
+        img = imagen;
     }
     public Productos(int Id, String Nombre)
     {

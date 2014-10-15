@@ -28,7 +28,7 @@ public class DAOproductos extends coneccionBD {
             PreparedStatement ps = Sentencia(sql);
             ResultSet rows = ConsultaConResultado(ps);
             while (rows.next()) {
-                Productos aux = new Productos(rows.getInt("idProductos"), rows.getString("nombre"), rows.getFloat("precio"), rows.getInt("stock"));
+                Productos aux = new Productos(rows.getInt("idProductos"), rows.getString("nombre"), rows.getFloat("precio"), rows.getInt("stock"),rows.getString("imagen"));
                 lista.put(aux.getId(), aux);
             }
             return lista;
@@ -45,7 +45,7 @@ public class DAOproductos extends coneccionBD {
             PreparedStatement ps = Sentencia(sql);
             ResultSet rows = ConsultaConResultado(ps);
             while (rows.next()) {
-                aux = new Productos(rows.getInt("idProductos"), rows.getString("nombre"), rows.getFloat("precio"), rows.getInt("stock"));
+                aux = new Productos(rows.getInt("idProductos"), rows.getString("nombre"), rows.getFloat("precio"), rows.getInt("stock"),rows.getString("imagen"));
             }
             return aux;
         } finally {
@@ -61,6 +61,8 @@ public class DAOproductos extends coneccionBD {
                 + pro.getPrecio()
                 + "', `stock`='"
                 + pro.getStock()
+                + "', `imagen`='"
+                + pro.getImg()
                 + "' WHERE `idProductos`="
                 + pro.getId()
                 + ";";
@@ -72,6 +74,14 @@ public class DAOproductos extends coneccionBD {
         //INSERT INTO `ringadamboriana`.`productos` (`idProductos`, `nombre`, `precio`, `stock`) VALUES ('11', 'asdf', '1', '2');
         String sql = "INSERT INTO `productos` (`nombre`, `precio`, `stock`) VALUES ('"
                 + name + "', '" + precio + "', '" + stoc + "');";
+        PreparedStatement ps = Sentencia(sql);
+        ConsultaSinResultado(ps);
+    }
+    
+    public void CrearProducto(String name, float precio, int stoc,String imag) throws Exception {
+        //INSERT INTO `ringadamboriana`.`productos` (`idProductos`, `nombre`, `precio`, `stock`) VALUES ('11', 'asdf', '1', '2');
+        String sql = "INSERT INTO `productos` (`nombre`, `precio`, `stock`,`imagen`) VALUES ('" 
+                + name + "', '" + precio + "', '" + stoc + "', '" + imag + "');";
         PreparedStatement ps = Sentencia(sql);
         ConsultaSinResultado(ps);
     }
@@ -98,7 +108,7 @@ public class DAOproductos extends coneccionBD {
         PreparedStatement ps = Sentencia(sql);
         ResultSet rows = super.ConsultaConResultado(ps);
         while (rows.next()) {
-            Productos aux = new Productos(rows.getInt("idProductos"), rows.getString("nombre"), rows.getFloat("precio"), rows.getInt("stock"));
+            Productos aux = new Productos(rows.getInt("idProductos"), rows.getString("nombre"), rows.getFloat("precio"), rows.getInt("stock"),rows.getString("imagen"));
             lista.put(aux.getId(), aux);
         }
         return lista;
