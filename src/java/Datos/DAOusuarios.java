@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Datos;
 
 import Modelo.Usuarios;
@@ -11,10 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Hashtable;
 
-/**
- *
- * @author Edii
- */
+
 public class DAOusuarios extends coneccionBD {
 
     public DAOusuarios() throws Exception {
@@ -122,7 +114,20 @@ public class DAOusuarios extends coneccionBD {
         } finally {
             super.desconectar();
         }
+    }
 
+    public void CrearUsr(Usuarios usuario) throws Exception {
+        try {
+            super.conectar();
+            String sql = "INSERT INTO `usuarios` (`usuario`, `pass`, `DNI`, `nombre`, `apellido`, `tipo`) VALUES ('"
+                    + usuario.getUsuario() + "', '" + usuario.getContrasenia() + "', '" + usuario.getDNI() + "', '" + usuario.getNombre() + "', '" + usuario.getApellido() + "', '" + usuario.getTipoUsr() + "');";
+            PreparedStatement ps = Sentencia(sql);
+            ConsultaSinResultado(ps);
+        } catch (SQLException ex) {
+            throw new SQLException("Error al crear Usuario " + ex.getMessage());
+        } finally {
+            super.desconectar();
+        }
     }
 
     public void EliminarUsr(Usuarios id) throws Exception {
