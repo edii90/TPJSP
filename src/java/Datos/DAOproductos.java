@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Datos;
 
 import Modelo.Productos;
@@ -10,10 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Hashtable;
 
-/**
- *
- * @author Edii
- */
 public class DAOproductos extends coneccionBD {
 
     public DAOproductos() throws Exception {
@@ -82,6 +73,14 @@ public class DAOproductos extends coneccionBD {
         //INSERT INTO `ringadamboriana`.`productos` (`idProductos`, `nombre`, `precio`, `stock`) VALUES ('11', 'asdf', '1', '2');
         String sql = "INSERT INTO `productos` (`nombre`, `precio`, `stock`,`imagen`) VALUES ('" 
                 + name + "', '" + precio + "', '" + stoc + "', '" + imag + "');";
+        PreparedStatement ps = Sentencia(sql);
+        ConsultaSinResultado(ps);
+    }
+    
+    public void CrearProducto(Productos producto) throws Exception {
+        //INSERT INTO `ringadamboriana`.`productos` (`idProductos`, `nombre`, `precio`, `stock`) VALUES ('11', 'asdf', '1', '2');
+        String sql = "INSERT INTO `productos` (`nombre`, `precio`, `stock`,`imagen`) VALUES ('" 
+                + producto.getNombre() + "', '" + producto.getPrecio() + "', '" + producto.getStock() + "', '" + producto.getImg() + "');";
         PreparedStatement ps = Sentencia(sql);
         ConsultaSinResultado(ps);
     }

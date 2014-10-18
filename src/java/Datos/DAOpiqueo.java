@@ -45,12 +45,12 @@ public class DAOpiqueo extends coneccionBD {
         }
     }
     
-    public void confirmarEntregaPiqueo(int idpiqueo) throws Exception
+    public void confirmarEntregaPiqueo(Piqueos piqueo) throws Exception
     {
         
         try{
             super.conectar();
-            String sql = "update piqueo set estado = 2";
+            String sql = "update piqueo set estado = 2 where idpiqueo="+piqueo.getId();
             PreparedStatement ps = Sentencia(sql);
             ConsultaSinResultado(ps);
         } catch (Exception ex) {

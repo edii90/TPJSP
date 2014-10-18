@@ -97,10 +97,10 @@ public class DAOcompras extends coneccionBD {
             super.desconectar();
         }
     }
-    public void RechazarCompra(int id) throws Exception{
+    public void RechazarCompra(Compras compra) throws Exception{
         try{
             super.conectar();
-            String sql = "UPDATE `compras` SET `estado`= 2 WHERE `idCompra`='" + id + "';";
+            String sql = "UPDATE `compras` SET `estado`= 2 WHERE `idCompra`='" + compra.getId() + "';";
             PreparedStatement ps = Sentencia(sql);
             ConsultaSinResultado(ps);
             
@@ -111,10 +111,10 @@ public class DAOcompras extends coneccionBD {
         }
     }
 
-    public void ConfirmarCompra(int id) throws Exception{
+    public void ConfirmarCompra(Compras compra) throws Exception{
         try{
             super.conectar();
-            String sql = "UPDATE `compras` SET `estado`= 3 WHERE `idCompra`='" + id + "';";
+            String sql = "UPDATE `compras` SET `estado`= 3 WHERE `idCompra`='" + compra.getId() + "';";
             PreparedStatement ps = Sentencia(sql);
             ConsultaSinResultado(ps);
             

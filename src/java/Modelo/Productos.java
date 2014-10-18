@@ -46,6 +46,14 @@ public class Productos {
         
     }
     
+    public Productos(String Nombre,float Precio,int Stock,String imagen)
+    {
+        nombre = Nombre;
+        precio = Precio;
+        stock = Stock;
+        img = imagen;
+    }
+    
     public Productos(int Id, String Nombre,float Precio,int Stock,String imagen)
     {
         id = Id;
