@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Adaptadores;
 
+import Controladora.ControladoraProductos;
+import Modelo.Productos;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -14,39 +10,51 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author matias
- */
-@WebServlet(name = "ControladoraProductos", urlPatterns = {"/ControladoraProductos"})
-public class AdaptadoraProductos extends HttpServlet {
+@WebServlet(name = "AdaptadoraABMProductos", urlPatterns = {"/AdaptadoraABMProductos"})
+public class AdaptadoraABMProductos extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+    ControladoraProductos Cproductos;
+    Productos Eproductos;
+    
+    private boolean NuevoProducto(HttpServletRequest request, HttpServletResponse response) throws Exception{
+        
+        String nombre   =   request.getParameter("nombre");
+        float precio    =   Float.valueOf(request.getParameter("precio"));
+        int stock       =   Integer.parseInt(request.getParameter("stock"));
+        String imagen   =   request.getParameter("imagen");
+        
+        Eproductos = new Productos(nombre, precio, stock, imagen);
+        
+        return Cproductos.AltaProducto(Eproductos);
+    }    
+    
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException {
+
         try {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ControladoraProductos</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ControladoraProductos at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        } finally {
-            out.close();
+            
+            String funcion = request.getParameter("funcion");
+            
+            if (funcion == null){
+                //error
+            }else{
+                if(funcion.equals("alta"))
+                {
+                    //NuevoProducto()
+                }
+                else if(funcion.equals("baja"))
+                {
+                
+                }
+                else if(funcion.equals("modificacion"))
+                {
+                
+                }
+            }
+                
+        }catch (Exception ex){
+        
+        }finally {
+        
         }
     }
 

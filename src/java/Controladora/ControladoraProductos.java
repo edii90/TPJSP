@@ -30,7 +30,7 @@ public class ControladoraProductos {
         }
     }
     
-    public Boolean ModificarUsuario(Productos producto) throws Exception{
+    public Boolean ModificarProducto(Productos producto) throws Exception{
         try
         {
             Dproductos.ModificarProducto(producto);
@@ -40,7 +40,7 @@ public class ControladoraProductos {
         }
     }
     
-    public Productos ObtenerUsuario(int id) throws Exception{
+    public Productos ObtenerProducto(int id) throws Exception{
         try
         {
             return Dproductos.TraerProductosXId(id);
@@ -49,7 +49,7 @@ public class ControladoraProductos {
         }
     }
     
-    public Hashtable ObtenerUsuario() throws Exception{
+    public Hashtable ObtenerProducto() throws Exception{
         try{
             return Dproductos.TraerProductos();
         }catch (SQLException ex){

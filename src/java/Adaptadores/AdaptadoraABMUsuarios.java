@@ -21,7 +21,7 @@ public class AdaptadoraABMUsuarios extends HttpServlet {
     Usuarios Eusuarios;
     
     
-    public boolean NuevoUsuario(HttpServletRequest request, HttpServletResponse response) throws Exception{
+    private boolean NuevoUsuario(HttpServletRequest request, HttpServletResponse response) throws Exception{
         
         String usuario    =   request.getParameter("usuario");
         String contraseña =   request.getParameter("contraseña");
@@ -44,7 +44,8 @@ public class AdaptadoraABMUsuarios extends HttpServlet {
             }else{
                 if(funcion.equals("alta"))
                 {
-                    
+                    boolean noterror;
+                    noterror = NuevoUsuario(request, response);
                 }
                 else if(funcion.equals("baja"))
                 {
@@ -56,7 +57,10 @@ public class AdaptadoraABMUsuarios extends HttpServlet {
                 }
             }
                 
-        } finally {
+        }catch (Exception ex){
+        
+        }finally {
+        
         }
     }
 
