@@ -1,7 +1,12 @@
 package Adaptadores;
 
+import Controladora.ControladoraCompras;
+import Controladora.ControladoraUsuarios;
+import Modelo.Compras;
+import Modelo.Usuarios;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Hashtable;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,10 +16,33 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "AdaptadoraObtenerCompras", urlPatterns = {"/AdaptadoraObtenerCompras"})
 public class AdaptadoraObtenerCompras extends HttpServlet {
 
+    ControladoraCompras   Ccompras;
+    ControladoraUsuarios Cusuarios;
+    Compras               Ecompras;
+    Usuarios             Eusuarios;
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         try {
+            
+            if(request.getParameter("id") != null){
+                
+                request.setAttribute("Compra", Ccompras.ObtenerCabezeraCompras(Integer.parseInt(request.getParameter("id"))));
+            
+            } else { if(request.getParameter("idUsuario") != null){
+                
+                request.setAttribute("ComprasUsuarios", Ccompras.ObtenerCabezeraCompras(Cusuarios.ObtenerUsuario(Integer.parseInt(request.getParameter("idUsuario")))));
+            
+            } else { if(request.getParameter("idCompra") != null){
+                
+                request.setAttribute("LineasCompra",Ccompras.ObtenerLineasCompras(Integer.parseInt(request.getParameter("idCompra"))));
+            
+            } } }
+            
+        } catch (Exception ex) {
+            
         } finally {
+            
         }
     }
 

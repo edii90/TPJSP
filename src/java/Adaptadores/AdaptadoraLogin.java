@@ -24,8 +24,7 @@ public class AdaptadoraLogin extends HttpServlet {
             Eusuarios         = Cusuarios.Login(usuario, contraseña);
             
             if (Eusuarios != null){
-                //guardar en bean
-                //redireccionar
+                request.setAttribute("usuario", Eusuarios);
             }else{
                 //error
             }

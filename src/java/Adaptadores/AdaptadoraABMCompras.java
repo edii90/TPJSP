@@ -1,7 +1,11 @@
 package Adaptadores;
 
+import Controladora.ControladoraCompras;
+import Controladora.ControladoraUsuarios;
+import Modelo.Compras;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Hashtable;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,11 +15,52 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "AdaptadoraABMCompras", urlPatterns = {"/AdaptadoraABMCompras"})
 public class AdaptadoraABMCompras extends HttpServlet {
 
+    ControladoraCompras   Ccompras;
+    ControladoraUsuarios Cusuarios;
+    
+    private boolean NuevaCompra(HttpServletRequest request, HttpServletResponse response) throws Exception{
+        
+        Hashtable lista = null;
+        return Ccompras.AltaCompra(Cusuarios.ObtenerUsuario(Integer.parseInt(request.getParameter("id"))), lista);
+    }
+    
+    private boolean ConfirmarCompra(HttpServletRequest request, HttpServletResponse response) throws Exception{
+        
+        return Ccompras.ConfirmarCompra(Ccompras.ObtenerCabezeraCompras(Integer.parseInt(request.getParameter("id"))));
+    }
+    
+    private boolean RechazarCompra(HttpServletRequest request, HttpServletResponse response) throws Exception{
+        
+        return Ccompras.RechazarCompra(Ccompras.ObtenerCabezeraCompras(Integer.parseInt(request.getParameter("id"))));
+    }    
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         try {
-
-        } finally {
+            
+            String funcion = request.getParameter("funcion");
+            
+            if (funcion == null){
+                //error
+            }else{
+                if(funcion.equals("alta"))
+                {
+                    request.setAttribute("respuesta",NuevaCompra(request, response));
+                }
+                else if(funcion.equals("confirmar"))
+                {
+                    request.setAttribute("respuesta",ConfirmarCompra(request, response));
+                }
+                else if(funcion.equals("rechazar"))
+                {
+                    request.setAttribute("respuesta",RechazarCompra(request, response));
+                }
+            }
+                
+        }catch (Exception ex){
+        
+        }finally {
+        
         }
     }
 

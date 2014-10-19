@@ -1,5 +1,6 @@
 package Adaptadores;
 
+import Controladora.ControladoraProductos;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -11,20 +12,26 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "AdaptadoraObtenerProductos", urlPatterns = {"/AdaptadoraObtenerProductos"})
 public class AdaptadoraObtenerProductos extends HttpServlet {
 
+    ControladoraProductos Cproductos;
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         try {
+            
             if(request.getParameter("id") != null){
                 
+                request.setAttribute("Producto",Cproductos.ObtenerProducto(Integer.parseInt(request.getParameter("id"))));
+            
+            } else {
                 
-            }else{
-                
-                
+                request.setAttribute("Productos",Cproductos.ObtenerProducto());
+            
             }
-        } catch (Exception ex){
+            
+        } catch (Exception ex) {
             
         } finally {
-           
+            
         }
     }
 

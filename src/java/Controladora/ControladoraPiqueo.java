@@ -19,6 +19,14 @@ public class ControladoraPiqueo {
         }
     }
     
+    public Piqueos ObtenerPiqueo(int id) throws Exception{
+        try{
+            return Dpiqueo.traerPiqueo(id);
+        }catch (SQLException ex){
+            return null;
+        }
+    }
+    
     public Hashtable ObtenerPiqueos() throws Exception{
         try{
             return Dpiqueo.traerTodosPiqueosPendientes();

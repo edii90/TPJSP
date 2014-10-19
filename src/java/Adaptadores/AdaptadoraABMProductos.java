@@ -23,10 +23,28 @@ public class AdaptadoraABMProductos extends HttpServlet {
         int stock       =   Integer.parseInt(request.getParameter("stock"));
         String imagen   =   request.getParameter("imagen");
         
-        Eproductos = new Productos(nombre, precio, stock, imagen);
+        return Cproductos.AltaProducto(nombre, precio, stock, imagen);
+    }
+    
+    private boolean EliminarProducto(HttpServletRequest request, HttpServletResponse response) throws Exception{
         
-        return Cproductos.AltaProducto(Eproductos);
-    }    
+        int id   = Integer.parseInt(request.getParameter("id"));
+                
+        return Cproductos.BajaProducto(id);
+    }
+    
+    private boolean ModificarProducto(HttpServletRequest request, HttpServletResponse response) throws Exception{
+    
+        int id          =   Integer.parseInt(request.getParameter("id"));
+        String nombre   =   request.getParameter("nombre");
+        float precio    =   Float.valueOf(request.getParameter("precio"));
+        int stock       =   Integer.parseInt(request.getParameter("stock"));
+        String imagen   =   request.getParameter("imagen");
+        
+        Eproductos = new Productos(id, nombre, precio, stock, imagen);
+        
+        return Cproductos.ModificarProducto(Eproductos);
+    }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException {
 
@@ -39,15 +57,15 @@ public class AdaptadoraABMProductos extends HttpServlet {
             }else{
                 if(funcion.equals("alta"))
                 {
-                    //NuevoProducto()
+                    request.setAttribute("respuesta",NuevoProducto(request, response));
                 }
                 else if(funcion.equals("baja"))
                 {
-                
+                    request.setAttribute("respuesta",EliminarProducto(request, response));
                 }
                 else if(funcion.equals("modificacion"))
                 {
-                
+                    request.setAttribute("respuesta",ModificarProducto(request, response));
                 }
             }
                 

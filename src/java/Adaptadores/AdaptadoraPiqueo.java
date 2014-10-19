@@ -15,18 +15,15 @@ import javax.servlet.http.HttpServletResponse;
 public class AdaptadoraPiqueo extends HttpServlet {
     
     ControladoraPiqueo Cpiqueo;
-    Piqueos Epiqueo;
     
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         try {
             if(request.getParameter("id") != null){
-                int idPiqueo = Integer.parseInt(request.getParameter("id")); //aca obtendria el Epiqueo = ....
-                //obtener piqueo desde el request y hago : Cpiqueo.ConfirmarPiqueo(Epiqueo)
+                request.setAttribute("piqueo",Cpiqueo.ConfirmarPiqueo(Cpiqueo.ObtenerPiqueo(Integer.parseInt(request.getParameter("id")))));
             }else{
-                Hashtable Piqueos = Cpiqueo.ObtenerPiqueos();
-                //guardo en session o paso por request
+                request.setAttribute("piqueos",Cpiqueo.ObtenerPiqueos());
             }
             
         } catch (Exception ex) {

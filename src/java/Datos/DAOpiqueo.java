@@ -45,6 +45,22 @@ public class DAOpiqueo extends coneccionBD {
         }
     }
     
+    public Piqueos traerPiqueo(int idPiqueo) throws Exception{
+        try{
+            super.conectar();
+            String sql = "";
+            PreparedStatement ps = Sentencia(sql);
+            ResultSet rows = ConsultaConResultado(ps);
+            
+            Piqueos aux = null;
+            return aux;
+        } catch(Exception ex) {
+            throw new SQLException("Error");
+        } finally {
+             super.desconectar();
+        }
+    }
+    
     public void confirmarEntregaPiqueo(Piqueos piqueo) throws Exception
     {
         

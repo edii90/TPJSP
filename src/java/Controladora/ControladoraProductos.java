@@ -1,9 +1,12 @@
 package Controladora;
 
 import Datos.DAOproductos;
+import Modelo.LineaDeCompra;
 import Modelo.Productos;
 import Modelo.Usuarios;
+import com.oracle.jrockit.jfr.Producer;
 import java.sql.SQLException;
+import java.util.Enumeration;
 import java.util.Hashtable;
 
 public class ControladoraProductos {
@@ -11,15 +14,27 @@ public class ControladoraProductos {
     DAOproductos Dproductos;
     Productos Eproductos;
     
-    public Boolean AltaProducto(Productos producto) throws Exception{
+    public Boolean AltaProducto(String nombre,float precio,int stock,String imagen) throws Exception{
         try
         {
-            Dproductos.CrearProducto(producto);
+            Eproductos = new Productos(nombre, precio, stock, imagen);
+            Dproductos.CrearProducto(Eproductos);
             return true;
         }catch (SQLException ex){
             return false;
         }
     }
+    
+    public Boolean BajaProducto(int id) throws Exception{
+        try
+        {
+            Dproductos.EliminarProducto(id);
+            return true;
+        }catch (SQLException ex){
+            return false;
+        }
+    }
+    
     public Boolean BajaProducto(Productos producto) throws Exception{
         try
         {
@@ -34,6 +49,21 @@ public class ControladoraProductos {
         try
         {
             Dproductos.ModificarProducto(producto);
+            return true;
+        }catch (SQLException ex){
+            return false;
+        }
+    }
+    
+    public Boolean ModificarProducto(Hashtable productos) throws Exception{
+        try
+        {
+            Enumeration<Productos> Lproductos = productos.elements();
+            while(Lproductos.hasMoreElements())
+            {
+                Eproductos = Lproductos.nextElement();
+                ModificarProducto(Eproductos);
+            }
             return true;
         }catch (SQLException ex){
             return false;

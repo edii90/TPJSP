@@ -30,7 +30,29 @@ public class AdaptadoraABMUsuarios extends HttpServlet {
         String apellido   =   request.getParameter("apellido");
         int tipo          =   Integer.parseInt(request.getParameter("tipo"));
                 
-        return Cusuario.AltaUsuario(usuario, contraseña, documento, nombre, apellido, tipo);        
+        return Cusuario.AltaUsuario(usuario, contraseña, documento, nombre, apellido, tipo);
+    }
+    
+    private boolean EliminarUsuario(HttpServletRequest request, HttpServletResponse response) throws Exception{
+        
+        int id            =  Integer.parseInt(request.getParameter("id"));
+        
+        return Cusuario.BajaUsuario(id);
+    }
+    
+    private boolean ModificarUsuario(HttpServletRequest request, HttpServletResponse response) throws Exception{
+        
+        int id            =   Integer.parseInt(request.getParameter("id"));
+        String usuario    =   request.getParameter("usuario");
+        String contraseña =   request.getParameter("contraseña");
+        int documento     =   Integer.parseInt(request.getParameter("documento"));
+        String nombre     =   request.getParameter("nombre");
+        String apellido   =   request.getParameter("apellido");
+        int tipo          =   Integer.parseInt(request.getParameter("tipo"));
+        
+        Eusuarios = new Usuarios(id, usuario, contraseña, documento, nombre, apellido, tipo);
+        
+        return Cusuario.ModificarUsuario(Eusuarios);
     }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -44,16 +66,18 @@ public class AdaptadoraABMUsuarios extends HttpServlet {
             }else{
                 if(funcion.equals("alta"))
                 {
-                    boolean noterror;
-                    noterror = NuevoUsuario(request, response);
+                    boolean respuesta;
+                    respuesta = NuevoUsuario(request, response);
                 }
                 else if(funcion.equals("baja"))
                 {
-                
+                    boolean respuesta;
+                    respuesta = EliminarUsuario(request, response);
                 }
                 else if(funcion.equals("modificacion"))
                 {
-                
+                    boolean respuesta;
+                    respuesta = ModificarUsuario(request, response);
                 }
             }
                 

@@ -22,14 +22,11 @@ public class AdaptadoraObtenerUsuarios extends HttpServlet {
         try {
             
             if(request.getParameter("id") != null){
-                int idUsuario = Integer.parseInt(request.getParameter("id"));
-                Eusuarios     = Cusuarios.ObtenerUsuario(idUsuario);
-                //guardo en session o paso por request
+                
+                request.setAttribute("usuario", Cusuarios.ObtenerUsuario(Integer.parseInt(request.getParameter("id"))));
             }else{
-                Hashtable Usuarios = Cusuarios.ObtenerUsuario();
-                //guardo en session o paso por request
+                 request.setAttribute("usuarios", Cusuarios.ObtenerUsuario());
             }
-            
         } catch (Exception ex) {
             
         } finally {

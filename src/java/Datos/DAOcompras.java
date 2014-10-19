@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Datos;
 
 import Modelo.Compras;
@@ -17,14 +12,28 @@ import java.sql.Savepoint;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
-/**
- *
- * @author Edii
- */
 public class DAOcompras extends coneccionBD {
 
     public DAOcompras() throws Exception {
         super();
+    }
+    
+    public Compras TraerUnaCompra(int idCompra) throws Exception{
+        try {
+            
+            super.conectar();
+            Compras Ecompras = null;
+            
+            String sql = "SELECT * FROM Compras;";
+            PreparedStatement ps = Sentencia(sql);
+            ResultSet rows = ConsultaConResultado(ps);
+            
+            return Ecompras;
+        } catch (SQLException ex) {
+             throw new SQLException(" " + ex.getMessage());
+        } finally {
+            super.desconectar();
+        }
     }
 
     public Hashtable TraerTodasCabacerasCompras() throws Exception {
@@ -97,6 +106,7 @@ public class DAOcompras extends coneccionBD {
             super.desconectar();
         }
     }
+    
     public void RechazarCompra(Compras compra) throws Exception{
         try{
             super.conectar();
