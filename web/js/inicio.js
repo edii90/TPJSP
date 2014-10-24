@@ -1,4 +1,4 @@
-$(function() {
+/*$(function() {
     var $container = $('#contenedor');
 
     $container.mixItUp({
@@ -8,7 +8,7 @@ $(function() {
         }
     });
 
-});
+});*/
 
 $(function() {
     var search = 'glyphicon glyphicon-search',

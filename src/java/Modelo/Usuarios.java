@@ -20,6 +20,8 @@ public class Usuarios {
     private int tipoUsr;
     private boolean estado;
     
+    public Usuarios ()
+    {}
     public String getUsuario() {
         return usuario;
     }

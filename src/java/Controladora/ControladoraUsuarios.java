@@ -8,8 +8,12 @@ import java.util.Hashtable;
 
 public class ControladoraUsuarios {
     
-    DAOusuarios Dusuarios;
+    DAOusuarios Dusuarios ;
     Usuarios Eusuarios;
+    public ControladoraUsuarios() throws Exception
+    {
+        Dusuarios = new DAOusuarios();
+    }
     
     public Boolean AltaUsuario(String usuario, String contraseña, int doc, String name, String apellido, int tipo) throws Exception{
         try

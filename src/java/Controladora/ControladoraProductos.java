@@ -13,6 +13,10 @@ public class ControladoraProductos {
     
     DAOproductos Dproductos;
     Productos Eproductos;
+    public ControladoraProductos() throws Exception
+    {
+        Dproductos = new DAOproductos();
+    }
     
     public Boolean AltaProducto(String nombre,float precio,int stock,String imagen) throws Exception{
         try

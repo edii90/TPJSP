@@ -16,6 +16,10 @@ body{
     margin-left: 5px;
     margin-right: 5px;
 }
+.buscador{
+    max-width: 250px;
+    padding-top: 7px;
+}
 .navbar, .footer{
     box-shadow: 0px 0px 15px rgba(0,0,0,0.8);
 
@@ -164,9 +168,9 @@ table, th, td {
     padding-right: 5px;
 }
 .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
-cursor: default;
-background-color: #eee;
-opacity: 1;
+    cursor: default;
+    background-color: #eee;
+    opacity: 1;
 }
 
 /* Hide for mobile, show later */
@@ -223,6 +227,7 @@ opacity: 1;
 
 .main {
     padding: 20px;
+    margin: 0 auto;
 }
 @media (min-width: 768px) {
     .main {
@@ -245,6 +250,7 @@ opacity: 1;
 }
 .placeholders h4 {
     margin-bottom: 0;
+    height: 35px;
 }
 .placeholder {
     margin-bottom: 20px;
@@ -431,7 +437,6 @@ button:focus{
     margin: 5px auto;
 }
 .descripcion{
-    height: 38px;
     overflow: hidden;
     margin:5px 0;
     vertical-align: middle;
@@ -459,17 +464,17 @@ button:focus{
     display: none;
 }
 .item .img img{
-border-radius: 50%;
-width: 75px;
-height: 75px;
+    border-radius: 50%;
+    width: 75px;
+    height: 75px;
 
 
 }
 @media (min-width: 768px) {
     .item .img{
-    display: block;
-    padding-top: 13px;
-    padding-bottom: 12px;
+        display: block;
+        padding-top: 13px;
+        padding-bottom: 12px;
     }
 }
 .item .text{
@@ -522,7 +527,7 @@ height: 75px;
 }
 .empty img
 {
-margin: 0 auto;
-opacity: 0.8;
-height: 300px;
+    margin: 0 auto;
+    opacity: 0.8;
+    height: 300px;
 }

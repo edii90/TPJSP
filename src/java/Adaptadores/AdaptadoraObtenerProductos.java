@@ -12,7 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "AdaptadoraObtenerProductos", urlPatterns = {"/AdaptadoraObtenerProductos"})
 public class AdaptadoraObtenerProductos extends HttpServlet {
 
-    ControladoraProductos Cproductos;
+    ControladoraProductos Cproductos ;
+    
+    @Override
+    public void init(){
+        Cproductos = new ControladoraProductos();
+    }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
@@ -20,11 +25,13 @@ public class AdaptadoraObtenerProductos extends HttpServlet {
             
             if(request.getParameter("id") != null){
                 
-                request.setAttribute("Producto",Cproductos.ObtenerProducto(Integer.parseInt(request.getParameter("id"))));
+                request.getSession().setAttribute("Productos",Cproductos.ObtenerProducto(Integer.parseInt(request.getParameter("id"))));
+                response.sendRedirect("main.jsp");
             
             } else {
                 
-                request.setAttribute("Productos",Cproductos.ObtenerProducto());
+                request.getSession().setAttribute("Productos",Cproductos.ObtenerProducto());
+                response.sendRedirect("main.jsp");
             
             }
             

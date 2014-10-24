@@ -84,15 +84,22 @@
             </div><!-- /.container -->
         </nav>
         <div class="container">
-            <form class="form-signin" name="formulario" action="login" method="post">
+            <form class="form-signin" name="formulario" action="AdaptadoraLogin" method="post">
                 <h2 class="form-signin-heading">Iniciar Sesion</h2>
                 <input type="text" id="usuario" name="usuario" class="form-control" placeholder="Nombre de Usuario" required="" autofocus="" maxlength="10">
                 <input type="password" id="pass" name="pass" class="form-control" placeholder="Password" required="" onkeypress="return submitenter(this, event)" maxlength="20">
                 <input class="btn btn-lg btn-primary btn-block" type="button" onclick="javascript:Validar();" value="Login">
             </form>
+
+            <% if (session.getAttribute("ErrorLogin") != null) {
+                        String msj = (String) session.getAttribute("ErrorLogin"); %>
             <div id="mensaje" class="alert alert-error mensaje">
-                <strong id="error"></strong>
-            </div>
+
+                <strong id="error"><% out.println(msj); %></strong></div>
+                <% }%>
+
+
+
 
         </div>
         <div id="crossfade">
@@ -108,13 +115,7 @@
         </div>
         <script src="js/jquery-1.11.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
-        <script>
-                    $(".alert").alert()
-        </script>
-        <script>
-            $(document).ready(function() {
-                $('#mensaje').hide();
-            });
-        </script> 
+
+
     </body>
 </html>

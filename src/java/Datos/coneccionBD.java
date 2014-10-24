@@ -22,7 +22,7 @@ public class coneccionBD {
     
     public coneccionBD() throws Exception
     {
-        strCon = "jdbc:mysql://localhost:3306/ringadamboriana";
+        strCon = "jdbc:mysql://localhost:3306/tpjspferreteria";
     }
     
     public void conectar() throws Exception
