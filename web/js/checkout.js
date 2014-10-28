@@ -1,7 +1,5 @@
 $(function() {
     var idprod = 0,
-            items = 0,
-            icon = '<i class="glyphicon glyphicon-shopping-cart"></i>',
             cant = 0;
 
     $('.btn-eliminar').on('click', function() {
@@ -12,7 +10,7 @@ $(function() {
             inp.focus();
             }
            else {
-            $.post('carrito', {idprod: idprod, cant: cant, accionCarro: 'E'}, function(data){window.location = data;});
+            $.post('AdaptadoraCarrito', {idprod: idprod, cant: cant, accionCarro: 'E'}, function(data){window.location = data;});
         };
     });
 });
@@ -28,13 +26,13 @@ $(function() {
             inp.focus();
             }
            else {
-            $.post('carrito', {idprod: idprod, cant: cant, accionCarro: 'M'}, function(data){window.location = data;});
+            $.post('AdaptadoraCarrito', {idprod: idprod, cant: cant, accionCarro: 'M'}, function(data){window.location = data;});
         };
     });
 });
 $(function() {
     $('.btn-confirmar').on('click', function() {
-            $.post('carrito', {accionCarro: 'C'}, function(data){window.location = data;});
+            $.post('AdaptadoraCarrito', {accionCarro: 'C'}, function(data){window.location = data;});
     });
 });
 $(function() {

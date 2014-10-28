@@ -88,4 +88,12 @@ public class Compras {
         usr = User;
         lista = Lista;
     }
+    public Compras(Usuarios User){
+        usr = User;
+        lista = new Hashtable();
+    }
+    public Compras()
+    {
+        
+    }
 }

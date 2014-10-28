@@ -18,6 +18,7 @@
         <link href="css/bootstrap-theme.min.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
         <script>
+            function ocultar(){ $('#mensaje').hide('slow');}
             function Validar() {
                 if (formulario.usuario.value == '')
                 {
@@ -91,13 +92,10 @@
                 <input class="btn btn-lg btn-primary btn-block" type="button" onclick="javascript:Validar();" value="Login">
             </form>
 
-            <% if (session.getAttribute("ErrorLogin") != null) {
-                        String msj = (String) session.getAttribute("ErrorLogin"); %>
-            <div id="mensaje" class="alert alert-error mensaje">
 
-                <strong id="error"><% out.println(msj); %></strong></div>
-                <% }%>
-
+            <div id="mensaje" class="alert alert-error mensaje"><strong id="error">
+                <% if (session.getAttribute("ErrorLogin") != null) { String msj = (String) session.getAttribute("ErrorLogin"); out.println(msj); }%></strong>
+            </div>
 
 
 
@@ -115,6 +113,17 @@
         </div>
         <script src="js/jquery-1.11.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
+        <% if (session.getAttribute("ErrorLogin") != null) {%>
+        <script>
+                    $('#mensaje').show();
+                    $('#mensaje').alert();
+
+        </script>
+        <% } else {%>
+        <script>
+                    $('#mensaje').hide();
+        </script>
+        <% } %>
 
 
     </body>

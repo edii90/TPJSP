@@ -1,14 +1,14 @@
-/*$(function() {
-    var $container = $('#contenedor');
+$(function() {
+        $('.input-cant').on('blur', function() {
+        var stock = $(this).attr("data-stock");
+        var cant = $(this).val();
+        if (parseInt(cant) > parseInt(stock)) {
+            $(this).val(parseInt(stock));
+            $(this).focus();
+        };
 
-    $container.mixItUp({
-        animation: {
-            animateResizeTargets: true, // Animate the width/height of targets as the layout changes
-            effects: 'fade rotateX(-40deg) translateZ(-100px)'
-        }
     });
-
-});*/
+});
 
 $(function() {
     var search = 'glyphicon glyphicon-search',
@@ -54,7 +54,7 @@ $(function() {
             exit();
         }
         else {
-            $.post('carrito', {idprod: idprod, cant: cant, accionCarro: 'A'}, function(data)
+            $.post('AdaptadoraCarrito', {idprod: idprod, cant: cant,accionCarro: 'A'}, function(data)
             {
                 $('#cart').html(icon + '(' + data + ')');
             });
