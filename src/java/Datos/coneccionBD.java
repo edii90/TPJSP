@@ -23,6 +23,7 @@ public class coneccionBD {
     public coneccionBD() throws Exception
     {
         strCon = "jdbc:mysql://localhost:3306/tpjspferreteria";
+        this.conectar();
     }
     
     public void conectar() throws Exception

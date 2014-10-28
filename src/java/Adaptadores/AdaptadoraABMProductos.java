@@ -4,6 +4,8 @@ import Controladora.ControladoraProductos;
 import Modelo.Productos;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +17,14 @@ public class AdaptadoraABMProductos extends HttpServlet {
 
     ControladoraProductos Cproductos;
     Productos Eproductos;
+    @Override
+     public void init(){
+        try {
+            Cproductos = new ControladoraProductos();
+        } catch (Exception ex) {
+            Logger.getLogger(AdaptadoraABMProductos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     }
     
     private boolean NuevoProducto(HttpServletRequest request, HttpServletResponse response) throws Exception{
         

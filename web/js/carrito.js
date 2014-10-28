@@ -32,7 +32,7 @@ $(function() {
 });
 $(function() {
     $('.btn-confirmar').on('click', function() {
-            $.post('AdaptadoraCarrito', {accionCarro: 'C'}, function(data){window.location = data;});
+            $.post('AdaptadoraABMCompras', {funcion: 'alta'}, function(data){window.location = data;});
     });
 });
 $(function() {

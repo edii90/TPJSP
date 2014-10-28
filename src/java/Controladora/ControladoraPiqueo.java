@@ -8,6 +8,10 @@ import java.util.Hashtable;
 public class ControladoraPiqueo {
     
     DAOpiqueo Dpiqueo;
+    public ControladoraPiqueo() throws Exception
+    {
+        Dpiqueo = new DAOpiqueo();
+    }
     
     public Boolean ConfirmarPiqueo(Piqueos piqueo) throws Exception{
         try

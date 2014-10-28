@@ -4,7 +4,28 @@
     Author     : Leandro
 --%>
 
+<%@page import="java.util.Enumeration"%>
+<%@page import="java.util.Hashtable"%>
+<%@page import="Modelo.Usuarios"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:useBean id="sessionuser" class="Modelo.Usuarios" scope="session"  />
+<%
+    if (session.getAttribute("user") == null) {
+        request.getSession().setAttribute("ErrorLogin", "Usuario no logueado");
+        response.sendRedirect("index.jsp");
+    } else {
+        Usuarios Euser = (Usuarios) session.getAttribute("user");
+        Hashtable detalles = new Hashtable();
+        if (session.getAttribute("detalles") != null) {
+            detalles = (Hashtable) session.getAttribute("detalles");
+        }
+        if (session.getAttribute("usuarios") == null) {
+            RequestDispatcher rd = request.getRequestDispatcher("AdaptadoraObtenerUsuarios");
+            rd.include(request, response);
+        }
+
+
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -28,26 +49,26 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="inicio">Ferreteria</a>
+                    <a class="navbar-brand" href="main.jsp">Ferreteria</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="inicio"><span class="glyphicon glyphicon-home"></span> Inicio</a></li>
-                        <li class="active"><a href="historial">Historial</a></li>
+                        <li><a href="main.jsp"><span class="glyphicon glyphicon-home"></span> Inicio</a></li>
+                        <li class="active"><a href="history.jsp">Historial</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="hidden-xs">
-                            <a id="cart" href="/checkout"><i class="glyphicon glyphicon-shopping-cart"></i>(0)</a>
+                            <a id="cart" href="checkout.jsp"><i class="glyphicon glyphicon-shopping-cart"></i>(<%=detalles.size()%>)</a>
                         </li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>  Admin <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>  <jsp:getProperty name="sessionuser" property="usuario" /> <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
 
-                                <!-- Validar Administrador-->
-                                <li><a href="administrar"><span class="glyphicon glyphicon-cog"></span> Administrar Usuarios</a></li>
-                                <!-- -->
+                                <% if (((Usuarios) session.getAttribute("user")).getTipoUsr() == 1) { %>
+                                <li><a href="administration.jsp"><span class="glyphicon glyphicon-cog"></span> Administrar Usuarios</a></li>
+                                    <% }%>
 
-                                <li><a href="logout"><span class="glyphicon glyphicon-off"></span> Cerrar Sesion</a></li>
+                                <li><a href="Logout"><span class="glyphicon glyphicon-off"></span> Cerrar Sesion</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -57,44 +78,26 @@
         <div class="container">
 
             <br>
-
+            <% if (((Usuarios) session.getAttribute("user")).getTipoUsr() == 1) { %>
             <div class="selector">
                 <select class="form-control" id="usuarios">
                     <option value="todos">Todos</option>
+                    <% Hashtable listauser = (Hashtable) session.getAttribute("usuarios");
+                        Enumeration usuarios = listauser.elements();
+                        while (usuarios.hasMoreElements()) {
+                            Usuarios user = (Usuarios) usuarios.nextElement(); %>
 
-                    <!-- Servlet Cargar Usuarios
-                    
-                              <option value="user14">Federico Lopez</option>
-                    
-                              <option value="user12">Mate Hiper</option>
-                    
-                              <option value="user11">Lucas Perez</option>
-                    
-                              <option value="user10">Maximiliano Queiroz</option>
-                    
-                              <option value="user9">Guillermo Cattaneo</option>
-                    
-                              <option value="user8">Pedro Rodriguez</option>
-                    
-                              <option value="user7">Luis Hernandez</option>
-                    
-                              <option value="user6">Julian Garcia</option>
-                    
-                              <option value="user5">Raul Gonzalez</option>
-                    
-                              <option value="user4">Juan Garcia</option>
-                    
-                              <option value="user3">Jose Perez</option>
-                    
-                              <option value="user2">Leandro Santillan</option>
-                    
-                              <option value="user1">Administrador</option>
-                    -->
+                            <option value="user<%=user.getId()%>"><%=user.getUsuario()%></option>
+                    <% }%>
                 </select>
             </div>
             <hr>
-
+            <% }%>
             <div class="panel-group" id="accordion">
+                <% if (((Usuarios) session.getAttribute("user")).getTipoUsr() == 1) {
+                    
+                    
+                }%>
 
                 <!-- Servlet Cargar Historial -->
 
@@ -149,7 +152,7 @@
                     var opt = $(this).val();
 
                     if (opt != "todos") {
-                        $('.panel-group div.panel-default').each(function()
+                        $('.panel-group div.panel').each(function()
                         {
                             if (!$(this).hasClass(opt))
                             {
@@ -162,7 +165,7 @@
                         });
                     }
                     else {
-                        $('.panel-group div.panel-default').each(function()
+                        $('.panel-group div.panel').each(function()
                         {
                             $(this).show("slow");
                         });
@@ -173,3 +176,4 @@
         </script>
     </body>
 </html>
+<% }%>

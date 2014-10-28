@@ -65,7 +65,7 @@
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="main.jsp"><span class="glyphicon glyphicon-home"></span> Inicio</a></li>
-                        <li><a href="history">Historial</a></li>
+                        <li><a href="history.jsp">Historial</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="buscador">

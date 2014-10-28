@@ -119,7 +119,7 @@
                     </div>
                     <div class="clearfix"></div>
                     <div class="row cuadro">
-                        <div class="col-xs-6"><button id="seguir" type="button" class="btn btn-seguir"><a href="inicio">Seguir Comprando</a></button></div>
+                        <div class="col-xs-6"><button id="seguir" type="button" class="btn btn-seguir"><a href="main.jsp">Seguir Comprando</a></button></div>
                         <% if (detalles.size() > 0) {
                         %>                     
                         <div class="col-xs-6"><button id="confirmar" type="button" class="btn btn-confirmar">Confirmar</button></div>
@@ -138,7 +138,7 @@
         </div>
         <script src="js/jquery-1.11.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
-        <script src="js/checkout.js"></script>
+        <script src="js/carrito.js"></script>
     </body>
 </html>
 <% }%>

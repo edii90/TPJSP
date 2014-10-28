@@ -6,6 +6,8 @@ import Modelo.Usuarios;
 import java.beans.Beans;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +21,14 @@ public class AdaptadoraABMUsuarios extends HttpServlet {
     
     ControladoraUsuarios Cusuario;
     Usuarios Eusuarios;
+    @Override
+     public void init(){
+        try {
+            Cusuario = new ControladoraUsuarios();
+        } catch (Exception ex) {
+            Logger.getLogger(AdaptadoraABMUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     }
     
     
     private boolean NuevoUsuario(HttpServletRequest request, HttpServletResponse response) throws Exception{

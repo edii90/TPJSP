@@ -10,10 +10,15 @@ public class ControladoraCompras {
     
     DAOcompras Dcompras;
     Compras    Ecompras;
+    public ControladoraCompras() throws Exception
+    {
+        Dcompras = new DAOcompras();
+    }
     
     public Boolean AltaCompra(Usuarios usuario,Hashtable lista) throws Exception{
         try{
             Ecompras = new Compras(usuario, lista);
+            Ecompras.setTotal(Ecompras.calcularTotal());
             Dcompras.CrearCompra(Ecompras);
             return true;
         }catch (SQLException ex){

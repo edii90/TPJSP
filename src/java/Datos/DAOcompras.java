@@ -21,7 +21,6 @@ public class DAOcompras extends coneccionBD {
     public Compras TraerUnaCompra(int idCompra) throws Exception{
         try {
             
-            super.conectar();
             Compras Ecompras = null;
             
             String sql = "SELECT * FROM Compras;";
@@ -42,7 +41,6 @@ public class DAOcompras extends coneccionBD {
 //      "SELECT * FROM compras c inner join prodxcomp pc where c.idCompras=pc.idCompra" 
 //      pero no se como manejar los datos
         try {
-            super.conectar();
             DAOusuarios dusr = new DAOusuarios();
             Hashtable lista = new Hashtable();
 
@@ -66,7 +64,6 @@ public class DAOcompras extends coneccionBD {
 
     public Hashtable TraerLineasComprasPorIdCabecera(int idCabecera) throws Exception {
         try {
-            super.conectar();
             Hashtable aux = new Hashtable();
             String sqlProd = "SELECT idLinea,idProd,nombre,precioUnit,cantidad FROM prodxcomp pc inner join productos p on p.idProductos=pc.idProd where idCompra =" + idCabecera + ";";
             PreparedStatement psProd = Sentencia(sqlProd);
@@ -87,7 +84,6 @@ public class DAOcompras extends coneccionBD {
 
     public Hashtable TraerComprasXusr(Usuarios user) throws Exception {
         try {
-            super.conectar();
             Hashtable lista = new Hashtable();
 
             String sql = "SELECT * FROM Compras where idUsuario = '" + user.getId() + "';";
@@ -109,7 +105,6 @@ public class DAOcompras extends coneccionBD {
     
     public void RechazarCompra(Compras compra) throws Exception{
         try{
-            super.conectar();
             String sql = "UPDATE `compras` SET `estado`= 2 WHERE `idCompra`='" + compra.getId() + "';";
             PreparedStatement ps = Sentencia(sql);
             ConsultaSinResultado(ps);
@@ -123,7 +118,6 @@ public class DAOcompras extends coneccionBD {
 
     public void ConfirmarCompra(Compras compra) throws Exception{
         try{
-            super.conectar();
             String sql = "UPDATE `compras` SET `estado`= 3 WHERE `idCompra`='" + compra.getId() + "';";
             PreparedStatement ps = Sentencia(sql);
             ConsultaSinResultado(ps);
@@ -140,7 +134,6 @@ public class DAOcompras extends coneccionBD {
         Connection conn = super.getConexion();
         Savepoint savepoint1 = null;
         try {
-            super.conectar();
             conn.setAutoCommit(false);
             savepoint1 = conn.setSavepoint("Savepoint1");
             String sql = "INSERT INTO compras (idUsuario,total) values('" + comp.getUsr().getId() + "','" + comp.getTotal() + "'); ";

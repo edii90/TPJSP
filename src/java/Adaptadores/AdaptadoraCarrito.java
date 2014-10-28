@@ -120,7 +120,7 @@ public class AdaptadoraCarrito extends HttpServlet {
 
         LineaDeCompra aux = new LineaDeCompra();
                 aux = (LineaDeCompra) detalles.get(idprod);
-                aux.setCantidad(aux.getCantidad() + cant);
+                aux.setCantidad(cant);
                 detalles.put(aux.getId(), aux);
                 session.setAttribute("detalles", detalles);
 

@@ -7,6 +7,8 @@ import Modelo.Usuarios;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Hashtable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +22,20 @@ public class AdaptadoraObtenerCompras extends HttpServlet {
     ControladoraUsuarios Cusuarios;
     Compras               Ecompras;
     Usuarios             Eusuarios;
+    
+    @Override
+     public void init(){
+        try {
+            Ccompras = new ControladoraCompras();
+        } catch (Exception ex) {
+            Logger.getLogger(AdaptadoraObtenerCompras.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            Cusuarios = new ControladoraUsuarios();
+        } catch (Exception ex) {
+            Logger.getLogger(AdaptadoraObtenerCompras.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

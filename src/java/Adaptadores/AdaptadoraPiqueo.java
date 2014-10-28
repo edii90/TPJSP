@@ -4,6 +4,8 @@ import Controladora.ControladoraPiqueo;
 import Modelo.Piqueos;
 import java.io.IOException;
 import java.util.Hashtable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +17,15 @@ import javax.servlet.http.HttpServletResponse;
 public class AdaptadoraPiqueo extends HttpServlet {
     
     ControladoraPiqueo Cpiqueo;
+    
+    @Override
+     public void init(){
+        try {
+            Cpiqueo = new ControladoraPiqueo();
+        } catch (Exception ex) {
+            Logger.getLogger(AdaptadoraPiqueo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     }
     
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
