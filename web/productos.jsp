@@ -1,6 +1,6 @@
 <%-- 
-    Document   : administration
-    Created on : 17/10/2014, 19:00:07
+    Document   : productos
+    Created on : 30/10/2014, 17:19:16
     Author     : Leandro
 --%>
 
@@ -21,7 +21,7 @@
         if (session.getAttribute("detalles") != null) {
             detalles = (Hashtable) session.getAttribute("detalles");
         }
-        RequestDispatcher rd = request.getRequestDispatcher("AdaptadoraObtenerUsuarios");
+        RequestDispatcher rd = request.getRequestDispatcher("AdaptadoraObtenerProductos");
         rd.include(request, response);
 
 
@@ -35,7 +35,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>Administrar - Ferreteria UTN</title>
+        <title>Productos - Ferreteria UTN</title>
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/bootstrap-theme.min.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
@@ -79,12 +79,11 @@
         </div><!-- /.navbar -->
 
         <div class="container"> 
-            <h1 class="page-header">Administrar Usuarios</h1>
-            <% if (session.getAttribute("ABMUser") != null) {%>
+            <h1 class="page-header">Administrar Productos</h1>
+            <% if (session.getAttribute("ABMProductos") != null) {%>
             <div class="alert alert-info" role="alert" >
-                <% String msj = (String) session.getAttribute("ABMUser");
-                    out.println(msj);
-                    session.setAttribute("ABMUser", null);%>
+                <% String msj = (String) session.getAttribute("ABMProductos");
+                    out.println(msj);%>
             </div>
             <% }%>
 

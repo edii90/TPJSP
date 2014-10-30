@@ -18,83 +18,100 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "ControladoraUsuarios", urlPatterns = {"/ControladoraUsuarios"})
 
 public class AdaptadoraABMUsuarios extends HttpServlet {
-    
+
     ControladoraUsuarios Cusuario;
     Usuarios Eusuarios;
+
     @Override
-     public void init(){
+    public void init() {
         try {
             Cusuario = new ControladoraUsuarios();
         } catch (Exception ex) {
             Logger.getLogger(AdaptadoraABMUsuarios.class.getName()).log(Level.SEVERE, null, ex);
         }
-     }
-    
-    
-    private boolean NuevoUsuario(HttpServletRequest request, HttpServletResponse response) throws Exception{
-        
-        String usuario    =   request.getParameter("usuario");
-        String contraseña =   request.getParameter("contraseña");
-        int documento     =   Integer.parseInt(request.getParameter("documento"));
-        String nombre     =   request.getParameter("nombre");
-        String apellido   =   request.getParameter("apellido");
-        int tipo          =   Integer.parseInt(request.getParameter("tipo"));
-                
+    }
+
+    private boolean NuevoUsuario(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        String usuario = request.getParameter("usuario");
+        String contraseña = request.getParameter("contraseña");
+        int documento = Integer.parseInt(request.getParameter("documento"));
+        String nombre = request.getParameter("nombre");
+        String apellido = request.getParameter("apellido");
+        int tipo = Integer.parseInt(request.getParameter("tipo"));
+
         return Cusuario.AltaUsuario(usuario, contraseña, documento, nombre, apellido, tipo);
     }
-    
-    private boolean EliminarUsuario(HttpServletRequest request, HttpServletResponse response) throws Exception{
-        
-        int id            =  Integer.parseInt(request.getParameter("id"));
-        
+
+    private boolean EliminarUsuario(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        int id = Integer.parseInt(request.getParameter("id"));
+
         return Cusuario.BajaUsuario(id);
     }
-    
-    private boolean ModificarUsuario(HttpServletRequest request, HttpServletResponse response) throws Exception{
-        
-        int id            =   Integer.parseInt(request.getParameter("id"));
-        String usuario    =   request.getParameter("usuario");
-        String contraseña =   request.getParameter("contraseña");
-        int documento     =   Integer.parseInt(request.getParameter("documento"));
-        String nombre     =   request.getParameter("nombre");
-        String apellido   =   request.getParameter("apellido");
-        int tipo          =   Integer.parseInt(request.getParameter("tipo"));
-        
+
+    private boolean ModificarUsuario(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        int id = Integer.parseInt(request.getParameter("id"));
+        String usuario = request.getParameter("usuario");
+        String contraseña = request.getParameter("contraseña");
+        int documento = Integer.parseInt(request.getParameter("documento"));
+        String nombre = request.getParameter("nombre");
+        String apellido = request.getParameter("apellido");
+        int tipo = Integer.parseInt(request.getParameter("tipo"));
+
         Eusuarios = new Usuarios(id, usuario, contraseña, documento, nombre, apellido, tipo);
-        
+
         return Cusuario.ModificarUsuario(Eusuarios);
     }
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
         try {
-            
+
             String funcion = request.getParameter("funcion");
-            
-            if (funcion == null){
+
+            if (funcion == null) {
                 //error
-            }else{
-                if(funcion.equals("alta"))
-                {
+            } else {
+                if (funcion.equals("alta")) {
                     boolean respuesta;
                     respuesta = NuevoUsuario(request, response);
-                }
-                else if(funcion.equals("baja"))
-                {
+                    if (respuesta) {
+                        request.getSession().setAttribute("ABMUser", new String("Usuario Registrado Correctamente"));
+                        out.println("administration.jsp");
+                    } else {
+                        request.getSession().setAttribute("ABMUser", new String("Error al Registrar Usuario"));
+                        out.println("administration.jsp");
+                    }
+                } else if (funcion.equals("baja")) {
                     boolean respuesta;
                     respuesta = EliminarUsuario(request, response);
-                }
-                else if(funcion.equals("modificacion"))
-                {
+                    if (respuesta) {
+                        request.getSession().setAttribute("ABMUser", new String("Usuario Eliminado Correctamente"));
+                        out.println("administration.jsp");
+                    } else {
+                        request.getSession().setAttribute("ABMUser", new String("Error al Eliminar Usuario"));
+                        out.println("administration.jsp");
+                    }
+                } else if (funcion.equals("modificacion")) {
                     boolean respuesta;
                     respuesta = ModificarUsuario(request, response);
+                    if (respuesta) {
+                        request.getSession().setAttribute("ABMUser", new String("Usuario Modificado Correctamente"));
+                        out.println("administration.jsp");
+                    } else {
+                        request.getSession().setAttribute("ABMUser", new String("Error al Modificar Usuario"));
+                        out.println("administration.jsp");
+                    }
                 }
             }
-                
-        }catch (Exception ex){
-        
-        }finally {
-        
+
+        } catch (Exception ex) {
+
+        } finally {
+
         }
     }
 
@@ -102,7 +119,6 @@ public class AdaptadoraABMUsuarios extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
-
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -66,7 +66,10 @@
                             <ul class="dropdown-menu" role="menu">
                                 <% if (((Usuarios) session.getAttribute("user")).getTipoUsr() == 1) { %>
                                 <li><a href="administration.jsp"><span class="glyphicon glyphicon-cog"></span> Administrar Usuarios</a></li>
-                                    <% }%>
+                                <li><a href="productos.jsp"> Productos</a></li> 
+                                <li><a href="compras.jsp"> Compras</a></li>
+                                <li><a href="piqueo.jsp"> Piqueos</a></li>
+                                <% }%>
                                 <li><a href="Logout"><span class="glyphicon glyphicon-off"></span> Cerrar Sesion</a></li>
                             </ul>
                         </li>

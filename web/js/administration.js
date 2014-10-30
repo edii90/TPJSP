@@ -1,23 +1,25 @@
 $(function() {
     var nombre = "",
+    apellido="",
             usuario = "",
-            email = "",
+            dni = "",
             pass = "",
             tipo = "";
 
     $('#reg').on('click', function() {
         nombre = $("#reg-nombre").val();
+        apellido = $("#reg-apellido").val();
         usuario = $("#reg-usuario").val();
-        email = $("#reg-email").val();
+        dni = $("#reg-dni").val();
         pass = $("#reg-pass").val();
         if ($("#reg-adm").is(':checked')) {
-            tipo = "true";
+            tipo = 1;
         } else {
-            tipo = "false";
+            tipo = 2;
         }
 
         if (nombre != "" && usuario != "" && pass != "") {
-            $.post('administrar', {usuario: usuario, pass: pass, nombre: nombre, email: email, adm: tipo, accionADM: 'R'}, function(data) {
+            $.post('ControladoraUsuarios', {usuario: usuario, contraseña: pass, nombre: nombre, apellido: apellido, documento: dni, tipo: tipo, funcion: 'alta'}, function(data) {
                 window.location = data;
             });
         }
@@ -26,9 +28,10 @@ $(function() {
 });
 $(function() {
     var nombre = "",
-            id = 0, 
+    apellido = "",
+            id = "",
             usuario = "",
-            email = "",
+            dni = "",
             pass = "",
             tipo = "";
 
@@ -36,24 +39,27 @@ $(function() {
         id = $(this).attr("data-id");
         usuario = $(this).attr("data-user");
         nombre = $(this).attr("data-nombre");
-        email = $(this).attr("data-email");
+        apellido = $(this).attr("data-apellido");
+        dni = $(this).attr("data-dni");
         pass = $(this).attr("data-pass");
         tipo = $(this).attr("data-tipo");
         $(":input[name='mod-nombre']").val(nombre);
+        $(":input[name='mod-apellido']").val(apellido);
         $(":input[name='mod-usuario']").val(usuario);
-        $(":input[name='mod-email']").val(email);
+        $(":input[name='mod-dni']").val(dni);
         $(":input[name='mod-pass']").val(pass);
-        if(tipo == "Admin")
+        $('#confirmar').attr('data-id', id);
+        if (tipo == 'admin')
         {
-            $(":input[name='mod-adm']").attr('checked', true);
+            $(':input[name="mod-adm"]').attr('checked', true);
         }
-        else
+        else if (tipo == 'comun')
         {
-            $(":input[name='mod-adm']").attr('checked', false);
+            $(':input[name="mod-adm"]').attr('checked', false);
         }
-        $("#confirmar").attr('data-id', id);
 
-        
+
+
     });
 });
 $(function() {
@@ -61,16 +67,17 @@ $(function() {
 
     $('.btn-eliminar').on('click', function() {
         iduser = $(this).attr("data-user");
-        $.post('administrar', {idusuario: iduser, accionADM: 'E'}, function(data) {
+        $.post('ControladoraUsuarios', {id: iduser, funcion: 'baja'}, function(data) {
             window.location = data;
         });
     });
 });
 $(function() {
     var nombre = "",
-            id = 0, 
+    apellido = "",
+            id = 0,
             usuario = "",
-            email = "",
+            dni = "",
             pass = "",
             tipo = "";
 
@@ -78,15 +85,16 @@ $(function() {
         id = $(this).attr("data-id");
         usuario = $(":input[name='mod-usuario']").val();
         nombre = $(":input[name='mod-nombre']").val();
-        email = $(":input[name='mod-email']").val();
+        apellido = $(":input[name='mod-apellido']").val();
+        dni = $(":input[name='mod-dni']").val();
         pass = $(":input[name='mod-pass']").val();
         if ($(":input[name='mod-adm']").is(':checked')) {
-            tipo = "true";
+            tipo = 1;
         } else {
-            tipo = "false";
+            tipo = 2;
         }
-        $.post('administrar', {iduser: id, usuario: usuario, pass: pass, nombre: nombre, email: email, adm: tipo, accionADM: 'M'}, function(data) {
-                window.location = data;
-            });
+        $.post('ControladoraUsuarios', {id: id, usuario: usuario, contraseña: pass, nombre: nombre, apellido: apellido, documento: dni, tipo: tipo, funcion: 'modificacion'}, function(data) {
+            window.location = data;
+        });
     });
 });

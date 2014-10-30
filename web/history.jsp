@@ -19,10 +19,8 @@
         if (session.getAttribute("detalles") != null) {
             detalles = (Hashtable) session.getAttribute("detalles");
         }
-        if (session.getAttribute("usuarios") == null) {
-            RequestDispatcher rd = request.getRequestDispatcher("AdaptadoraObtenerUsuarios");
-            rd.include(request, response);
-        }
+        RequestDispatcher rd = request.getRequestDispatcher("AdaptadoraObtenerUsuarios");
+        rd.include(request, response);
 
 
 %>
@@ -66,7 +64,10 @@
 
                                 <% if (((Usuarios) session.getAttribute("user")).getTipoUsr() == 1) { %>
                                 <li><a href="administration.jsp"><span class="glyphicon glyphicon-cog"></span> Administrar Usuarios</a></li>
-                                    <% }%>
+                                <li><a href="productos.jsp"> Productos</a></li>  
+                                <li><a href="compras.jsp"> Compras</a></li>
+                                <li><a href="piqueo.jsp"> Piqueos</a></li>
+                                <% }%>
 
                                 <li><a href="Logout"><span class="glyphicon glyphicon-off"></span> Cerrar Sesion</a></li>
                             </ul>
@@ -85,9 +86,9 @@
                     <% Hashtable listauser = (Hashtable) session.getAttribute("usuarios");
                         Enumeration usuarios = listauser.elements();
                         while (usuarios.hasMoreElements()) {
-                            Usuarios user = (Usuarios) usuarios.nextElement(); %>
+                            Usuarios user = (Usuarios) usuarios.nextElement();%>
 
-                            <option value="user<%=user.getId()%>"><%=user.getUsuario()%></option>
+                    <option value="user<%=user.getId()%>"><%=user.getUsuario()%></option>
                     <% }%>
                 </select>
             </div>
@@ -95,9 +96,8 @@
             <% }%>
             <div class="panel-group" id="accordion">
                 <% if (((Usuarios) session.getAttribute("user")).getTipoUsr() == 1) {
-                    
-                    
-                }%>
+
+                    }%>
 
                 <!-- Servlet Cargar Historial -->
 
