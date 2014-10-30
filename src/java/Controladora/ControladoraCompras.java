@@ -44,22 +44,6 @@ public class ControladoraCompras {
         } 
     }
     
-    public Hashtable ObtenerLineasCompras(int idCompra) throws Exception{
-        try{
-            return Dcompras.TraerLineasComprasPorIdCabecera(idCompra);
-        }catch (SQLException ex){
-            return null;
-        } 
-    }
-    
-    public Hashtable ObtenerLineasCompras(Compras compra) throws Exception{
-        try{
-            return Dcompras.TraerLineasComprasPorIdCabecera(compra.getId());
-        }catch (SQLException ex){
-            return null;
-        } 
-    }
-    
     public Hashtable ObtenerCabezeraCompras() throws Exception{
         try{
             return Dcompras.TraerTodasCabacerasCompras();

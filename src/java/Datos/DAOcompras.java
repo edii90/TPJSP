@@ -52,6 +52,7 @@ public class DAOcompras extends coneccionBD {
                 Usuarios usr = dusr.traerXid(rows.getInt("idUsuario"));
                 Compras aux = new Compras(rows.getInt("idCompras"), usr, rows.getDate("fecha"),rows.getInt("estado"));
                 aux.setTotal(rows.getFloat("total"));
+                aux.setLista(TraerLineasComprasPorIdCabecera(aux.getId()));
                 lista.put(aux.getId(), aux);
             }
             return lista;
@@ -62,7 +63,7 @@ public class DAOcompras extends coneccionBD {
         }
     }
 
-    public Hashtable TraerLineasComprasPorIdCabecera(int idCabecera) throws Exception {
+    private Hashtable TraerLineasComprasPorIdCabecera(int idCabecera) throws Exception {
         try {
             Hashtable aux = new Hashtable();
             String sqlProd = "SELECT idLinea,idProd,nombre,precioUnit,cantidad FROM prodxcomp pc inner join productos p on p.idProductos=pc.idProd where idCompra =" + idCabecera + ";";
@@ -93,6 +94,7 @@ public class DAOcompras extends coneccionBD {
             while (rows.next()) {
                 Compras aux = new Compras(rows.getInt("idCompras"), user, rows.getDate("fecha"),rows.getInt("estado"));
                 aux.setTotal(rows.getFloat("total"));
+                aux.setLista(TraerLineasComprasPorIdCabecera(aux.getId()));
                 lista.put(aux.getId(), aux);
             }
             return lista;
