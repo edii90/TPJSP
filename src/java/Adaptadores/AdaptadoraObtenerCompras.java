@@ -49,11 +49,7 @@ public class AdaptadoraObtenerCompras extends HttpServlet {
                 
                 request.setAttribute("ComprasUsuarios", Ccompras.ObtenerCabezeraCompras(Cusuarios.ObtenerUsuario(Integer.parseInt(request.getParameter("idUsuario")))));
             
-            } else { if(request.getParameter("idCompra") != null){
-                
-                request.setAttribute("LineasCompra",Ccompras.ObtenerLineasCompras(Integer.parseInt(request.getParameter("idCompra"))));
-            
-            } } }
+            } }
             
         } catch (Exception ex) {
             

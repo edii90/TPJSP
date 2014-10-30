@@ -115,10 +115,10 @@ INSERT INTO productos(nombre,precio,stock)VALUES('pincel',17,100);$$
 INSERT INTO productos(nombre,precio,stock)VALUES('pinza',28,100);$$
 INSERT INTO usuarios(usuario,pass,dni,nombre,apellido,tipo)VALUES('admin','admin',12345678,'admin','admin',1);$$
 INSERT INTO usuarios(usuario,pass,dni,nombre,apellido,tipo)VALUES('user','user',2345678,'user','user',2);$$
-INSERT INTO usuarios(usuario,pass,dni,nombre,apellido,tipo)VALUES('asd','asd',3456789,'asd','asd',2);$$
-INSERT INTO usuarios(usuario,pass,dni,nombre,apellido,tipo)VALUES('dsa','dsa',4567890,'dsa','dsa',2);$$
-INSERT INTO usuarios(usuario,pass,dni,nombre,apellido,tipo)VALUES('qwe','qwe',567890,'qwe','qwe',2);$$
-INSERT INTO usuarios(usuario,pass,dni,nombre,apellido,tipo)VALUES('ewq','ewq',67890,'ewq','ewq',2);$$
+INSERT INTO usuarios(usuario,pass,dni,nombre,apellido,tipo)VALUES('lean','1234',3456789,'leandro','santillan',2);$$
+INSERT INTO usuarios(usuario,pass,dni,nombre,apellido,tipo)VALUES('mate','mate',4567890,'Gaston','Fernandez',2);$$
+INSERT INTO usuarios(usuario,pass,dni,nombre,apellido,tipo)VALUES('charlie','charlie',567890,'Carlos','Saganias',2);$$
+INSERT INTO usuarios(usuario,pass,dni,nombre,apellido,tipo)VALUES('fede','fede',67890,'Federico','Muñoz',2);$$
 INSERT INTO usuarios(usuario,pass,dni,nombre,apellido,tipo)VALUES('edii','edii',7890,'edii','edii',2);$$
 INSERT INTO usuarios(usuario,pass,dni,nombre,apellido,tipo)VALUES('matute','matute',890,'matute','matute',2);$$
 commit;$$
