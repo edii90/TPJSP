@@ -57,7 +57,8 @@ public class AdaptadoraABMProductos extends HttpServlet {
     }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException {
-
+  response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
         try {
             
             String funcion = request.getParameter("funcion");
@@ -67,15 +68,40 @@ public class AdaptadoraABMProductos extends HttpServlet {
             }else{
                 if(funcion.equals("alta"))
                 {
-                    request.setAttribute("respuesta",NuevoProducto(request, response));
+                    boolean respuesta;
+                    respuesta = NuevoProducto(request, response);
+                    if (respuesta) {
+                        request.getSession().setAttribute("ABMProd", new String("Producto Registrado Correctamente"));
+                        out.println("productos.jsp");
+                    } else {
+                        request.getSession().setAttribute("ABMProd", new String("Error al Registrar Producto"));
+                        out.println("productos.jsp");
+                    }
+                    
                 }
                 else if(funcion.equals("baja"))
                 {
-                    request.setAttribute("respuesta",EliminarProducto(request, response));
+                    boolean respuesta;
+                    respuesta = EliminarProducto(request, response);
+                    if (respuesta) {
+                        request.getSession().setAttribute("ABMProd", new String("Producto Eliminado Correctamente"));
+                        out.println("productos.jsp");
+                    } else {
+                        request.getSession().setAttribute("ABMProd", new String("Error al Eliminar Producto"));
+                        out.println("productos.jsp");
+                    }
                 }
                 else if(funcion.equals("modificacion"))
                 {
-                    request.setAttribute("respuesta",ModificarProducto(request, response));
+                    boolean respuesta;
+                    respuesta = ModificarProducto(request, response);
+                    if (respuesta) {
+                        request.getSession().setAttribute("ABMProd", new String("Producto Modificado Correctamente"));
+                        out.println("productos.jsp");
+                    } else {
+                        request.getSession().setAttribute("ABMProd", new String("Error al Modificar Producto"));
+                        out.println("productos.jsp");
+                    }
                 }
             }
                 

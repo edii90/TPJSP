@@ -33,11 +33,9 @@ public class AdaptadoraObtenerUsuarios extends HttpServlet {
             
             if(request.getParameter("id") != null){
                 
-                request.getSession().setAttribute("usuario", Cusuarios.ObtenerUsuario(Integer.parseInt(request.getParameter("id"))));
-                response.sendRedirect("history.jsp");
+                request.getSession().setAttribute("usuario", Cusuarios.ObtenerUsuario(Integer.parseInt(request.getParameter("id"))));                
             }else{
-                 request.getSession().setAttribute("usuarios", Cusuarios.ObtenerUsuario());
-                 response.sendRedirect("history.jsp");
+                 request.getSession().setAttribute("usuarios", Cusuarios.ObtenerUsuario());                 
             }
         } catch (Exception ex) {
             

@@ -29,27 +29,22 @@ public class AdaptadoraObtenerCompras extends HttpServlet {
             Ccompras = new ControladoraCompras();
         } catch (Exception ex) {
             Logger.getLogger(AdaptadoraObtenerCompras.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            Cusuarios = new ControladoraUsuarios();
-        } catch (Exception ex) {
-            Logger.getLogger(AdaptadoraObtenerCompras.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }        
      }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         try {
+            Usuarios user = (Usuarios)request.getSession().getAttribute("user");
+            Hashtable compras;
+            if(user.getTipoUsr() == 1){
+                compras = Ccompras.ObtenerCabezeraCompras();
+                request.getSession().setAttribute("Compras",compras );
             
-            if(request.getParameter("id") != null){
-                
-                request.setAttribute("Compra", Ccompras.ObtenerCabezeraCompras(Integer.parseInt(request.getParameter("id"))));
-            
-            } else { if(request.getParameter("idUsuario") != null){
-                
-                request.setAttribute("ComprasUsuarios", Ccompras.ObtenerCabezeraCompras(Cusuarios.ObtenerUsuario(Integer.parseInt(request.getParameter("idUsuario")))));
-            
-            } }
+            } else {              
+                compras = Ccompras.ObtenerCabezeraCompras(user);
+                request.getSession().setAttribute("Compras", compras );            
+            }
             
         } catch (Exception ex) {
             

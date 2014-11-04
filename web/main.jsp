@@ -87,7 +87,7 @@
                                 <li><a href="productos.jsp"> Productos</a></li> 
                                 <li><a href="compras.jsp"> Compras</a></li>
                                 <li><a href="piqueo.jsp"> Piqueos</a></li>
-                                <% }%>
+                                    <% }%>
                                 <li><a href="Logout"><span class="glyphicon glyphicon-off"></span> Cerrar Sesion</a></li>
                             </ul>
                         </li>

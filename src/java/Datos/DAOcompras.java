@@ -44,7 +44,7 @@ public class DAOcompras extends coneccionBD {
             DAOusuarios dusr = new DAOusuarios();
             Hashtable lista = new Hashtable();
 
-            String sql = "SELECT * FROM Compras;";
+            String sql = "SELECT idCompras, idUsuario,fecha,estado,total FROM Compras;";
             PreparedStatement ps = Sentencia(sql);
             ResultSet rows = ConsultaConResultado(ps);
 

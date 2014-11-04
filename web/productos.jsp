@@ -4,6 +4,7 @@
     Author     : Leandro
 --%>
 
+<%@page import="Modelo.Productos"%>
 <%@page import="java.util.Enumeration"%>
 <%@page import="java.util.Hashtable"%>
 <%@page import="Modelo.Usuarios"%>
@@ -93,7 +94,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Modificar Usuario</h4>
+                            <h4 class="modal-title" id="myModalLabel">Modificar Producto</h4>
                         </div>
                         <div class="modal-body">
                             <div class="form-horizontal" id="formulario" role="form">
@@ -102,27 +103,19 @@
                                     <input type="text" class="form-control" name="mod-nombre" id="mod-nombre" placeholder="Nombre" autofocus="" required="">
                                 </div>
                                 <div class="form-group">
-                                    <label  for="apellido">Apellido</label>
-                                    <input type="text" class="form-control" name="mod-apellido" id="mod-apellido" placeholder="Apellido" required="">
+                                    <label  for="Precio">Precio</label>
+                                    <input type="text" class="form-control" name="mod-precio" id="mod-precio" placeholder="Precio" required="">
                                 </div>
                                 <div class="form-group">
-                                    <label  for="DNI">DNI</label>
-                                    <input type="text" class="form-control" name="mod-dni" id="mod-dni" placeholder="DNI"  required="">
+                                    <label  for="Stock">Stock</label>
+                                    <input type="text" class="form-control" name="mod-stock" id="mod-stock" placeholder="Stock"  required="">
 
                                 </div>
                                 <div class="form-group">
-                                    <label for="usuario">Usuario</label>
-                                    <input type="text" class="form-control" name="mod-usuario" id="mod-usuario" placeholder="Usuario" required="" maxlength="10">
-                                </div>                                
-                                <div class="form-group">
-                                    <label  for="pass">Password</label>
-                                    <input type="text" class="form-control" name="mod-pass" id="mod-pass" placeholder="Password" required="" maxlength="20">
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="mod-adm" id="mod-adm"> Administrador
-                                    </label>
-                                </div>
+                                    <label for="Imagen">Imagen</label>
+                                    <input type="text" class="form-control" name="mod-imagen" id="mod-imagen" placeholder="Imagen" required="" maxlength="10">
+                                </div>                               
+
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -137,7 +130,7 @@
 
                 <div class="col-md-3 pull-left">
                     <div class="panel panel-default">
-                        <div class="panel-heading">Registro de Usuarios</div>
+                        <div class="panel-heading">Registro de Productos</div>
                         <div class="panel-body">
                             <form class="form-horizontal" id="formulario" role="form">
                                 <div class="form-group">
@@ -145,27 +138,18 @@
                                     <input type="text" class="form-control" name="reg-nombre" id="reg-nombre" placeholder="Nombre" autofocus="" required="">
                                 </div>
                                 <div class="form-group">
-                                    <label class="sr-only" for="apellido">Apellido</label>
-                                    <input type="text" class="form-control" name="reg-apellido" id="reg-apellido" placeholder="Apellido"  required="">
+                                    <label class="sr-only" for="Precio">Precio</label>
+                                    <input type="text" class="form-control" name="reg-precio" id="reg-precio" placeholder="Precio"  required="">
                                 </div>
                                 <div class="form-group">
-                                    <label class="sr-only" for="DNI">DNI</label>
-                                    <input type="text" class="form-control" name="reg-dni" id="reg-dni" placeholder="DNI"  required="">
+                                    <label class="sr-only" for="Stock">Stock</label>
+                                    <input type="text" class="form-control" name="reg-stock" id="reg-stock" placeholder="Stock"  required="">
 
                                 </div>
                                 <div class="form-group">
-                                    <label class="sr-only" for="usuario">Usuario</label>
-                                    <input type="text" class="form-control" name="reg-usuario" id="reg-usuario" placeholder="Usuario" required="" maxlength="10">
-                                </div>                                
-                                <div class="form-group">
-                                    <label class="sr-only" for="pass">Password</label>
-                                    <input type="text" class="form-control" name="reg-pass" id="reg-pass" placeholder="Password" required="" maxlength="20">
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="reg-adm" id="reg-adm"> Administrador
-                                    </label>
-                                </div>
+                                    <label class="sr-only" for="Imagen">Imagen</label>
+                                    <input type="text" class="form-control disabled" value="img/noimage.jpg" name="reg-imagen" id="reg-usuario" placeholder="Imagen" required="" >
+                                </div> 
                                 <hr>
                                 <button id="reg" class="btn btn-primary pull-left">Registrar</button> 
                                 <button type="reset" class="btn btn-warning pull-right">Resetear</button>
@@ -176,51 +160,31 @@
                 <div class="col-md-9 pull-right">
                     <div class="panel panel-default">
                         <!-- Default panel contents -->
-                        <div class="panel-heading">Lista de Usuarios</div>
+                        <div class="panel-heading">Lista de Productos</div>
                         <div class="panel-body">
-                            <p>Lista de todos los Clientes registrados</p>
-                            <!-- Table -->
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Nombre</th>
-                                        <th>Apellido</th>
-                                        <th>DNI</th>
-                                        <th>Usuario</th> 
-                                        <th>Password</th>
-                                        <th>Tipo Usuario</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <% Hashtable listauser = (Hashtable) session.getAttribute("usuarios");
-                                        Enumeration usuarios = listauser.elements();
-                                        while (usuarios.hasMoreElements()) {
-                                            Usuarios user = (Usuarios) usuarios.nextElement();%>
+                            <p>Lista de todos los productos registrados</p>
+                            <% if (session.getAttribute("Productos") != null) {
+                                    Hashtable productos = (Hashtable) session.getAttribute("Productos");
+                                    Enumeration lista = productos.elements();
+                                     while (lista.hasMoreElements()) {
+                                         Productos prod = (Productos) lista.nextElement();%>
 
-                                    <tr id="user<%=user.getId()%>">
-                                        <td><%=user.getId()%></td>
-                                        <td><%=user.getNombre()%></td>
-                                        <td><%=user.getApellido()%></td>   
-                                        <td><%=user.getDNI()%></td>
-                                        <td><%=user.getUsuario()%></td>
-                                        <td><%=user.getContrasenia()%></td>
-                                        <%if (user.getTipoUsr() == 1) {
-                                                out.println("<td>Admin</td>");
-                                            } else {
-                                                out.println("<td>Comun</td>");
-                                            }%>
-                                        <td><button id="modificar" type="button" data-tipo="<%if (user.getTipoUsr() == 1) {
-                                                out.println("admin");
-                                            } else {
-                                                out.println("comun");
-                                            }%>" data-pass="<%=user.getContrasenia()%>" data-user="<%=user.getUsuario()%>" data-nombre="<%=user.getNombre()%>" data-apellido="<%=user.getApellido()%>" data-dni="<%=user.getDNI()%>" data-id="<%=user.getId()%>" class="btn btn-modificar" data-toggle="modal" data-target=".bs-example-modal-sm"><span class="glyphicon glyphicon-edit"></span></button>
-                                            <button id="eliminar" type="button" data-user="<%=user.getId()%>" class="btn btn-eliminar"><span class="glyphicon glyphicon-trash"></span></button></td>
-                                    </tr>
-                                    <% }%>
+                            <div class="row item item<%=prod.getId()%>">
+                                <div class="col-sm-2 cell img"><img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="200x200" src="<%= prod.getImg()%>"></div>
+                                <div class="col-xs-9 col-sm-8 cell text" style="display: inline-block">
+                                    <h4><%= prod.getNombre()%></h4>
+                                    <div class="descripcion">Stock: <%= prod.getStock()%> </div>
+                                    <span> $<%= prod.getPrecio()%></span>
+                                </div>
+                                
+                                <div class="col-xs-3 col-sm-2 cell button">
+                                <button id="modificar" type="button" data-prod="<%=prod.getId()%>" data-nombre="<%= prod.getNombre() %>" data-precio="<%=prod.getPrecio() %>" data-stock="<%=prod.getStock() %>" data-imagen="<%=prod.getImg() %>" class="btn btn-modificar" data-toggle="modal" data-target=".bs-example-modal-sm"><span class="glyphicon glyphicon-edit"></span></button>
+                                <button id="eliminar" type="button" data-prod="<%=prod.getId()%>" class="btn btn-eliminar"><span class="glyphicon glyphicon-trash"></span></button>
+                            </div>
 
-                                </tbody>
-                            </table>
+                            </div><!-- /.item -->
+                            <% }
+                                }%>
                         </div>
                     </div>
                 </div>
@@ -233,7 +197,7 @@
         </div>
         <script src="js/jquery-1.11.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
-        <script src="js/administration.js"></script>
+        <script src="js/productos.js"></script>
         <script> $(".alert").alert()</script>
 
 

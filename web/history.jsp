@@ -4,6 +4,8 @@
     Author     : Leandro
 --%>
 
+<%@page import="Modelo.LineaDeCompra"%>
+<%@page import="Modelo.Compras"%>
 <%@page import="java.util.Enumeration"%>
 <%@page import="java.util.Hashtable"%>
 <%@page import="Modelo.Usuarios"%>
@@ -21,6 +23,9 @@
         }
         RequestDispatcher rd = request.getRequestDispatcher("AdaptadoraObtenerUsuarios");
         rd.include(request, response);
+
+        RequestDispatcher rds = request.getRequestDispatcher("AdaptadoraObtenerCompras");
+        rds.include(request, response);
 
 
 %>
@@ -62,12 +67,12 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>  <jsp:getProperty name="sessionuser" property="usuario" /> <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
 
-                                <% if (((Usuarios) session.getAttribute("user")).getTipoUsr() == 1) { %>
+                                <% if (Euser.getTipoUsr() == 1) { %>
                                 <li><a href="administration.jsp"><span class="glyphicon glyphicon-cog"></span> Administrar Usuarios</a></li>
                                 <li><a href="productos.jsp"> Productos</a></li>  
                                 <li><a href="compras.jsp"> Compras</a></li>
                                 <li><a href="piqueo.jsp"> Piqueos</a></li>
-                                <% }%>
+                                    <% }%>
 
                                 <li><a href="Logout"><span class="glyphicon glyphicon-off"></span> Cerrar Sesion</a></li>
                             </ul>
@@ -79,7 +84,7 @@
         <div class="container">
 
             <br>
-            <% if (((Usuarios) session.getAttribute("user")).getTipoUsr() == 1) { %>
+            <% if (Euser.getTipoUsr() == 1) { %>
             <div class="selector">
                 <select class="form-control" id="usuarios">
                     <option value="todos">Todos</option>
@@ -95,37 +100,45 @@
             <hr>
             <% }%>
             <div class="panel-group" id="accordion">
-                <% if (((Usuarios) session.getAttribute("user")).getTipoUsr() == 1) {
+                <%if (request.getSession().getAttribute("Compras") != null) {
+                        Hashtable compras = (Hashtable) request.getSession().getAttribute("Compras");
+                        Enumeration com = compras.elements();
 
-                    }%>
+                        while (com.hasMoreElements()) {
+                            Compras aux = (Compras) com.nextElement();
+                            aux.calcularTotal();
+                            Enumeration lineas = aux.getLista().elements();
+                %>  
 
-                <!-- Servlet Cargar Historial -->
 
-                <div class="panel panel-default user14">
+                <div class="panel panel-default user<%=aux.getUsr().getId()%>">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse15">
-                                Orden #15  (Total: 439.0) - 2014-09-30
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%=aux.getId()%>">
+                                Orden #<%=aux.getId()%>(Total: <%=aux.getTotal()%>) - <%=aux.getFecha()%>
                             </a>
                         </h4>
                     </div>
-                    <div id="collapse15" class="panel-collapse collapse in">
+                    <div id="collapse<%=aux.getId()%>" class="panel-collapse collapse in">
                         <div class="panel-body">
+                            <% while (lineas.hasMoreElements()) {
+                                    LineaDeCompra lin = (LineaDeCompra) lineas.nextElement();
+                            %>
 
                             <div class="row item">
-                                <div class="col-sm-2 cell img"><img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="200x200" src="img/noimage.jpg"></div>
+                                <div class="col-sm-2 cell img"><img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="200x200" src="<%=lin.getImg()%>"></div>
                                 <div class="col-xs-6 col-sm-6 cell text">
-                                    <h4>Nagel</h4>
-                                    <div class="descripcion">Clavo de acero cabeza perdida 2.20 x 45 - 40 </div>
-                                    <span> $21.95</span><div class="clearfix"></div>
+                                    <h4><%=lin.getNombre()%></h4>
+                                    <div class="descripcion">Stock: <%=lin.getStock()%> </div>
+                                    <span> $<%=lin.getPrecio()%></span><div class="clearfix"></div>
                                 </div>
                                 <div class="col-xs-3 col-sm-2 cell input">
                                     <strong>Cantidad:</strong><div class="clearfix"></div>
-                                    <input name="sku17" type="text" readonly="" class="form-control input-sm input-cant" value="20"><div class="clearfix"></div>
+                                    <input name="sku<%=lin.getId()%>" type="text" readonly="" class="form-control input-sm input-cant" value="<%=lin.getCantidad()%>"><div class="clearfix"></div>
                                 </div>
                                 <div class="col-xs-3 col-sm-2 cell button">
                                     <strong>Subtotal:</strong><div class="clearfix"></div>
-                                    $439.0
+                                    $<%=lin.getPrecio() * lin.getCantidad()%>
                                 </div>
 
                             </div><!-- /.item -->
@@ -133,8 +146,11 @@
                         </div><!-- /.panelbody -->
                     </div><!-- /.collapse -->
                 </div><!-- /.panel -->
-                <!-- /Servlet Cargar Historial -->
 
+                <% }
+                        }
+                    }
+                %>
             </div><!-- /.panel-group -->
 
 
