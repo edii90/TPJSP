@@ -81,9 +81,9 @@
 
         <div class="container"> 
             <h1 class="page-header">Administrar Productos</h1>
-            <% if (session.getAttribute("ABMProductos") != null) {%>
+            <% if (session.getAttribute("ABMProd") != null) {%>
             <div class="alert alert-info" role="alert" >
-                <% String msj = (String) session.getAttribute("ABMProductos");
+                <% String msj = (String) session.getAttribute("ABMProd");
                     out.println(msj);%>
             </div>
             <% }%>

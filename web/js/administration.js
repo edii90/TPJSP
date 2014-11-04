@@ -19,7 +19,7 @@ $(function() {
         }
 
         if (nombre != "" && usuario != "" && pass != "") {
-            $.post('AdaptadoraABMProductos', {usuario: usuario, contraseña: pass, nombre: nombre, apellido: apellido, documento: dni, tipo: tipo, funcion: 'alta'}, function(data) {
+            $.post('ControladoraUsuarios', {usuario: usuario, contraseña: pass, nombre: nombre, apellido: apellido, documento: dni, tipo: tipo, funcion: 'alta'}, function(data) {
                 window.location = data;
             });
         }
@@ -67,7 +67,7 @@ $(function() {
 
     $('.btn-eliminar').on('click', function() {
         iduser = $(this).attr("data-user");
-        $.post('AdaptadoraABMProductos', {id: iduser, funcion: 'baja'}, function(data) {
+        $.post('ControladoraUsuarios', {id: iduser, funcion: 'baja'}, function(data) {
             window.location = data;
         });
     });
@@ -93,7 +93,7 @@ $(function() {
         } else {
             tipo = 2;
         }
-        $.post('AdaptadoraABMProductos', {id: id, usuario: usuario, contraseña: pass, nombre: nombre, apellido: apellido, documento: dni, tipo: tipo, funcion: 'modificacion'}, function(data) {
+        $.post('ControladoraUsuarios', {id: id, usuario: usuario, contraseña: pass, nombre: nombre, apellido: apellido, documento: dni, tipo: tipo, funcion: 'modificacion'}, function(data) {
             window.location = data;
         });
     });

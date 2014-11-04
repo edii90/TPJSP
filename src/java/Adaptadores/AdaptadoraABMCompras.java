@@ -57,14 +57,36 @@ public class AdaptadoraABMCompras extends HttpServlet {
             } else {
                 if (funcion.equals("alta")) {
                     boolean rta = NuevaCompra(request, response);
-                    request.setAttribute("respuesta", rta);
-                    out.println("history.jsp");
+                    if(rta)
+                    {
+                        out.println("history.jsp");
+                    }
+                    else
+                    {
+                        
+                    }
+                    
                 } else if (funcion.equals("confirmar")) {
                     boolean rta = ConfirmarCompra(request, response);
-                    request.setAttribute("respuesta", rta);
+                    if(rta)
+                    {
+                        request.getSession().setAttribute("ABMCompras", new String("Compra confirmada"));
+                    }
+                    else
+                    {
+                        request.getSession().setAttribute("ABMCompras", new String("Error al confirmar compra"));
+                    }
+                    
                 } else if (funcion.equals("rechazar")) {
                     boolean rta = RechazarCompra(request, response);
-                    request.setAttribute("respuesta", rta);
+                    if(rta)
+                    {
+                        request.getSession().setAttribute("ABMCompras", new String("Compra rechazada"));
+                    }
+                    else
+                    {
+                        request.getSession().setAttribute("ABMCompras", new String("Error al rechazar compra"));
+                    }
                 }
             }
 
