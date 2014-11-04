@@ -61,10 +61,6 @@ public class AdaptadoraABMCompras extends HttpServlet {
                     {
                         out.println("history.jsp");
                     }
-                    else
-                    {
-                        
-                    }
                     
                 } else if (funcion.equals("confirmar")) {
                     boolean rta = ConfirmarCompra(request, response);

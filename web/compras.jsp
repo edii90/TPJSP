@@ -3,6 +3,8 @@
     Created on : 30/10/2014, 17:23:49
     Author     : Leandro
 --%>
+<%@page import="Modelo.LineaDeCompra"%>
+<%@page import="Modelo.Compras"%>
 <%@page import="java.util.Enumeration"%>
 <%@page import="java.util.Hashtable"%>
 <%@page import="Modelo.Usuarios"%>
@@ -20,8 +22,8 @@
         if (session.getAttribute("detalles") != null) {
             detalles = (Hashtable) session.getAttribute("detalles");
         }
-        RequestDispatcher rd = request.getRequestDispatcher("AdaptadoraObtenerProductos");
-        rd.include(request, response);
+        RequestDispatcher rds = request.getRequestDispatcher("AdaptadoraObtenerCompras");
+        rds.include(request, response);
 
 
 %>
@@ -85,8 +87,68 @@
                     out.println(msj);%>
             </div>
             <% }%>
+            <div class="panel-group" id="accordion">
+                <%if (request.getSession().getAttribute("Compras") != null) {
+                        Hashtable compras = (Hashtable) request.getSession().getAttribute("Compras");
+                        Enumeration com = compras.elements();
+                        String in = "in";
 
+                        while (com.hasMoreElements()) {
+                            Compras aux = (Compras) com.nextElement();
+                            aux.calcularTotal();
+                            Enumeration lineas = aux.getLista().elements();
+                            if(aux.getEstado() == "Pendiente"){
+                %>             
+                <div class="panel panel-warning user<%=aux.getUsr().getId()%>"><%}%>
+                   <% if(aux.getEstado() == "Rechazada"){    %>             
+                <div class="panel panel-danger user<%=aux.getUsr().getId()%>"><%}%>
+                  <%  if(aux.getEstado() == "Aprobada"){       %>             
+                <div class="panel panel-success user<%=aux.getUsr().getId()%>"><%}%>
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%=aux.getId()%>">
+                                Orden #<%=aux.getId()%>  (Total: <%=aux.getTotal()%>) - <%=aux.getFecha()%> - 
+                            </a> Estado: <select class="form-control" id="estado" style="max-width: 250px; display: inline">
+                                        <option value="1"<% if(aux.getEstado() == "Pendiente"){out.println("selected");} %>>Pendiente</option>
+                                        <option value="2"<% if(aux.getEstado() == "Rechazada"){out.println("selected");} %>>Rechazada</option>
+                                        <option value="3"<% if(aux.getEstado() == "Aprobada"){out.println("selected");} %>>Aprobada</option>
+                                    </select>
+                        </h4>
+                    </div>
+                    <div id="collapse<%=aux.getId()%>" class="panel-collapse collapse <%= in%>">
+                        <div class="panel-body">
+                            <% while (lineas.hasMoreElements()) {
+                                    LineaDeCompra lin = (LineaDeCompra) lineas.nextElement();
+                            %>
 
+                            <div class="row item">
+                                <div class="col-sm-2 cell img"><img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="200x200" src="<%=lin.getImg()%>"></div>
+                                <div class="col-xs-6 col-sm-6 cell text">
+                                    <h4><%=lin.getNombre()%></h4>    <br> 
+                                    <span> $<%=lin.getCostoUnit() %></span><div class="clearfix"></div>
+                                     
+                                </div>
+                                <div class="col-xs-3 col-sm-2 cell input">
+                                    <strong>Cantidad:</strong><div class="clearfix"></div>
+                                    <input name="sku<%=lin.getId()%>" type="text" readonly="" class="form-control input-sm input-cant" value="<%=lin.getCantidad()%>"><div class="clearfix"></div>
+                                </div>
+                                <div class="col-xs-3 col-sm-2 cell button">
+                                    <strong>Subtotal:</strong><div class="clearfix"></div>
+                                    $<%=lin.getCostoUnit() * lin.getCantidad()%>
+                                </div>
+
+                            </div><!-- /.item -->
+                            <% } in = "";%>
+
+                        </div><!-- /.panelbody -->
+                    </div><!-- /.collapse -->
+                </div><!-- /.panel -->
+
+                <%
+                        }
+                    }
+                %>
+            </div><!-- /.panel-group -->
             
         </div><!-- /.container -->
         <div class="footer navbar-inverse">

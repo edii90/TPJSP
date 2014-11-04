@@ -66,20 +66,21 @@ public class DAOcompras extends coneccionBD {
     private Hashtable TraerLineasComprasPorIdCabecera(int idCabecera) throws Exception {
         try {
             Hashtable aux = new Hashtable();
-            String sqlProd = "SELECT idLinea,idProd,nombre,precioUnit,cantidad FROM prodxcomp pc inner join productos p on p.idProductos=pc.idProd where idCompra =" + idCabecera + ";";
+            String sqlProd = "SELECT idLinea,idProd,nombre,precioUnit,cantidad, imagen FROM prodxcomp pc inner join productos p on p.idProductos=pc.idProd where idCompra =" + idCabecera + ";";
             PreparedStatement psProd = Sentencia(sqlProd);
             ResultSet rows = ConsultaConResultado(psProd);
 
             while (rows.next()) {
                 //int idLin,int idProd,String nombre, float CostoUnit, int Cantidad
                 LineaDeCompra pro = new LineaDeCompra(rows.getInt("idLinea"), rows.getInt("idProd"), rows.getString("nombre"), rows.getFloat("precioUnit"), rows.getInt("cantidad"));
+                pro.setImg(rows.getString("imagen"));
                 aux.put(pro.getIdLinea(), pro);
             }
             return aux;
         } catch (SQLException ex) {
             throw new SQLException("Error en traer todas las lineas de compras por cabecera de Compra " + ex.getMessage());
         } finally {
-            super.desconectar();
+           // super.desconectar();
         }
     }
 
