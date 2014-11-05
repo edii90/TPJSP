@@ -22,6 +22,7 @@
         if (session.getAttribute("detalles") != null) {
             detalles = (Hashtable) session.getAttribute("detalles");
         }
+
         RequestDispatcher rds = request.getRequestDispatcher("AdaptadoraObtenerCompras");
         rds.include(request, response);
 
@@ -84,7 +85,8 @@
             <% if (session.getAttribute("ABMCompras") != null) {%>
             <div class="alert alert-info" role="alert" >
                 <% String msj = (String) session.getAttribute("ABMCompras");
-                    out.println(msj);%>
+                    out.println(msj);
+                    session.setAttribute("ABMCompras", null); %>
             </div>
             <% }%>
             <div class="panel-group" id="accordion">
@@ -92,27 +94,30 @@
                         Hashtable compras = (Hashtable) request.getSession().getAttribute("Compras");
                         Enumeration com = compras.elements();
                         String in = "in";
+                        boolean empty = false;
 
                         while (com.hasMoreElements()) {
                             Compras aux = (Compras) com.nextElement();
                             aux.calcularTotal();
                             Enumeration lineas = aux.getLista().elements();
-                            if(aux.getEstado() == "Pendiente"){
+                            if (aux.getEstado() == "Pendiente") {
                 %>             
-                <div class="panel panel-warning user<%=aux.getUsr().getId()%>"><%}%>
-                   <% if(aux.getEstado() == "Rechazada"){    %>             
-                <div class="panel panel-danger user<%=aux.getUsr().getId()%>"><%}%>
-                  <%  if(aux.getEstado() == "Aprobada"){       %>             
-                <div class="panel panel-success user<%=aux.getUsr().getId()%>"><%}%>
+                <div id="lineadecompra" class="panel panel-warning user<%=aux.getUsr().getId()%>">
+
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%=aux.getId()%>">
-                                Orden #<%=aux.getId()%>  (Total: <%=aux.getTotal()%>) - <%=aux.getFecha()%> - 
-                            </a> Estado: <select class="form-control" id="estado" style="max-width: 250px; display: inline">
-                                        <option value="1"<% if(aux.getEstado() == "Pendiente"){out.println("selected");} %>>Pendiente</option>
-                                        <option value="2"<% if(aux.getEstado() == "Rechazada"){out.println("selected");} %>>Rechazada</option>
-                                        <option value="3"<% if(aux.getEstado() == "Aprobada"){out.println("selected");} %>>Aprobada</option>
-                                    </select>
+                                Orden #<%=aux.getId()%>  (Total: <%=aux.getTotal()%>) - <%=aux.getFecha()%> - Estado <%=aux.getEstado()%>
+                            </a>
+                            Estado: <select class="form-control" id="estado" style="max-width: 250px; display: inline">                                
+                                <option value="2"<% if (aux.getEstado() == "Rechazada") {
+                                        out.println("selected");
+                                    } %>>Rechazada</option>
+                                <option value="3"<% if (aux.getEstado() == "Aprobada") {
+                                        out.println("selected");
+                                    }%>>Aprobada</option>
+                            </select>
+                            <button id="modificar" type="button" data-compra="<%=aux.getId()%>" class="btn btn-modificar"><span class="glyphicon glyphicon-floppy-disk"></span></button>
                         </h4>
                     </div>
                     <div id="collapse<%=aux.getId()%>" class="panel-collapse collapse <%= in%>">
@@ -124,9 +129,9 @@
                             <div class="row item">
                                 <div class="col-sm-2 cell img"><img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="200x200" src="<%=lin.getImg()%>"></div>
                                 <div class="col-xs-6 col-sm-6 cell text">
-                                    <h4><%=lin.getNombre()%></h4>    <br> 
-                                    <span> $<%=lin.getCostoUnit() %></span><div class="clearfix"></div>
-                                     
+                                    <h4><%=lin.getNombre()%></h4>     
+                                    <br>
+                                    <span> $<%=lin.getCostoUnit()%></span><div class="clearfix"></div>
                                 </div>
                                 <div class="col-xs-3 col-sm-2 cell input">
                                     <strong>Cantidad:</strong><div class="clearfix"></div>
@@ -138,18 +143,26 @@
                                 </div>
 
                             </div><!-- /.item -->
-                            <% } in = "";%>
+                            <% }
+                                        in = "";%>
 
                         </div><!-- /.panelbody -->
                     </div><!-- /.collapse -->
                 </div><!-- /.panel -->
 
                 <%
+                            } else{
+                                empty = true;
+                            }
                         }
+                        if(empty)
+                        {%>
+                        <div class="well well-lg"><strong>No Hay Compras Pendientes</strong></div>
+                        <%}
                     }
                 %>
             </div><!-- /.panel-group -->
-            
+
         </div><!-- /.container -->
         <div class="footer navbar-inverse">
             <div class="container">
@@ -158,11 +171,7 @@
         </div>
         <script src="js/jquery-1.11.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
-        <script src="js/administration.js"></script>
-        <script> $(".alert").alert()</script>
-
-
-
+        <script src="js/compras.js"></script> 
     </body>
 </html>
 <% }%>

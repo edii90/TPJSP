@@ -5,9 +5,7 @@ import java.util.Hashtable;
 
 public class Piqueos {
     private int id;
-    private int idProd;
-    private String nombre;
-    private int cantidad;
+    private Hashtable productos;
     private String estado;
     private Date fecha;
 
@@ -17,11 +15,11 @@ public class Piqueos {
     public void setId(int id) {
         this.id = id;
     }
-    public int getCantidad() {
-        return cantidad;
+    public Hashtable getProductos() {
+        return productos;
     }
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
+    public void setProductos(Hashtable productos) {
+        this.productos = productos;
     }
     public String getEstado() {
         return estado;
@@ -35,25 +33,10 @@ public class Piqueos {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-    public int getIdProd() {
-        return idProd;
-    }
-    public void setIdProd(int idProd) {
-        this.idProd = idProd;
-    }
-    public String getNombre() {
-        return nombre;
-    }
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
     
-    public Piqueos(int Id,int idp,String name,int cant,int est,Date fec)
+    public Piqueos(int Id,int est,Date fec)
     {
         id=Id;
-        idProd = idp;
-        nombre = name;
-        cantidad=cant;
         if(est == 1)
             estado = "No procesado";
         if(est == 2)

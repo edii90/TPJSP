@@ -26,7 +26,7 @@ public class ControladoraCompras {
         } 
     }
     
-    public Boolean RechazarCompra(Compras compra) throws Exception{
+    public Boolean RechazarCompra(int compra) throws Exception{
         try{
             Dcompras.RechazarCompra(compra);
             return true;
@@ -35,7 +35,7 @@ public class ControladoraCompras {
         } 
     }
     
-    public Boolean ConfirmarCompra(Compras compra) throws Exception{
+    public Boolean ConfirmarCompra(int compra) throws Exception{
         try{
             Dcompras.ConfirmarCompra(compra);
             return true;

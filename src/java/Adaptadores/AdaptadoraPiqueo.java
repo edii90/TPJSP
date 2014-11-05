@@ -31,11 +31,10 @@ public class AdaptadoraPiqueo extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         try {
-            if(request.getParameter("id") != null){
-                request.setAttribute("piqueo",Cpiqueo.ConfirmarPiqueo(Cpiqueo.ObtenerPiqueo(Integer.parseInt(request.getParameter("id")))));
-            }else{
-                request.setAttribute("piqueos",Cpiqueo.ObtenerPiqueos());
-            }
+            
+                Hashtable piqueos = Cpiqueo.ObtenerPiqueos();
+                request.setAttribute("piqueos",piqueos);
+           
             
         } catch (Exception ex) {
             

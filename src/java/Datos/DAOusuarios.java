@@ -65,7 +65,9 @@ public class DAOusuarios extends coneccionBD {
             PreparedStatement ps = Sentencia(sql);
             ResultSet rows = ConsultaConResultado(ps);
             if (rows.next()) {
-                return usr = new Usuarios(rows.getString("usuario"), rows.getString("pass"), rows.getInt("DNI"), rows.getString("nombre"), rows.getString("apellido"), rows.getInt("tipo"));
+                usr = new Usuarios(rows.getString("usuario"), rows.getString("pass"), rows.getInt("DNI"), rows.getString("nombre"), rows.getString("apellido"), rows.getInt("tipo"));
+                usr.setId(id);
+                return  usr;
             }
             return usr;
         } catch (SQLException ex) {

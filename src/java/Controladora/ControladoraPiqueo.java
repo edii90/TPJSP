@@ -13,21 +13,13 @@ public class ControladoraPiqueo {
         Dpiqueo = new DAOpiqueo();
     }
     
-    public Boolean ConfirmarPiqueo(Piqueos piqueo) throws Exception{
+    public Boolean ConfirmarPiqueo(int piqueo) throws Exception{
         try
         {
             Dpiqueo.confirmarEntregaPiqueo(piqueo);
             return true;
         }catch (SQLException ex){
             return false;
-        }
-    }
-    
-    public Piqueos ObtenerPiqueo(int id) throws Exception{
-        try{
-            return Dpiqueo.traerPiqueo(id);
-        }catch (SQLException ex){
-            return null;
         }
     }
     

@@ -32,17 +32,18 @@ public class AdaptadoraABMCompras extends HttpServlet {
 
         Hashtable lista = (Hashtable) request.getSession().getAttribute("detalles");
         Usuarios user = (Usuarios) request.getSession().getAttribute("user");
+        request.getSession().setAttribute("detalles", null);
         return Ccompras.AltaCompra(user, lista);
     }
 
     private boolean ConfirmarCompra(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        return Ccompras.ConfirmarCompra(Ccompras.ObtenerCabezeraCompras(Integer.parseInt(request.getParameter("id"))));
+        return Ccompras.ConfirmarCompra(Integer.parseInt(request.getParameter("id")));
     }
 
     private boolean RechazarCompra(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        return Ccompras.RechazarCompra(Ccompras.ObtenerCabezeraCompras(Integer.parseInt(request.getParameter("id"))));
+        return Ccompras.RechazarCompra(Integer.parseInt(request.getParameter("id")));
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

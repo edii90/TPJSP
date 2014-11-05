@@ -111,11 +111,11 @@
                             Enumeration lineas = aux.getLista().elements();
                             if(aux.getEstado() == "Pendiente"){
                 %>             
-                <div class="panel panel-warning user<%=aux.getUsr().getId()%>"><%}%>
+                <div id="lineadecompra" class="panel panel-warning user<%=aux.getUsr().getId()%>"><%}%>
                    <% if(aux.getEstado() == "Rechazada"){    %>             
-                <div class="panel panel-danger user<%=aux.getUsr().getId()%>"><%}%>
+                <div id="lineadecompra" class="panel panel-danger user<%=aux.getUsr().getId()%>"><%}%>
                   <%  if(aux.getEstado() == "Aprobada"){       %>             
-                <div class="panel panel-success user<%=aux.getUsr().getId()%>"><%}%>
+                <div id="lineadecompra" class="panel panel-success user<%=aux.getUsr().getId()%>"><%}%>
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%=aux.getId()%>">
@@ -173,20 +173,21 @@
                     var opt = $(this).val();
 
                     if (opt != "todos") {
-                        $('.panel-group div.panel').each(function()
+                        $('.panel-group div#lineadecompra').each(function()
                         {
-                            if (!$(this).hasClass(opt))
+                            if ($(this).hasClass(opt))
                             {
-                                $(this).hide("fast");
+                                $(this).show("slow");
                             }
                             else
                             {
-                                $(this).show("slow");
+                                $(this).hide("fast");
+                                
                             }
                         });
                     }
                     else {
-                        $('.panel-group div.panel').each(function()
+                        $('.panel-group div#lineadecompra').each(function()
                         {
                             $(this).show("slow");
                         });

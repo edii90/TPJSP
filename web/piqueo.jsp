@@ -4,6 +4,8 @@
     Author     : Leandro
 --%>
 
+<%@page import="Modelo.LineaDePiqueo"%>
+<%@page import="Modelo.Piqueos"%>
 <%@page import="java.util.Enumeration"%>
 <%@page import="java.util.Hashtable"%>
 <%@page import="Modelo.Usuarios"%>
@@ -21,7 +23,7 @@
         if (session.getAttribute("detalles") != null) {
             detalles = (Hashtable) session.getAttribute("detalles");
         }
-        RequestDispatcher rd = request.getRequestDispatcher("AdaptadoraObtenerProductos");
+        RequestDispatcher rd = request.getRequestDispatcher("ControladoraPiqueo");
         rd.include(request, response);
 
 
@@ -83,12 +85,53 @@
             <% if (session.getAttribute("MsjPiqueos") != null) {%>
             <div class="alert alert-info" role="alert" >
                 <% String msj = (String) session.getAttribute("MsjPiqueos");
-                    out.println(msj);%>
+                    out.println(msj);
+                    session.setAttribute("MsjPiqueos", null); %>
             </div>
-            <% }%>
+            <% } %>
+
+            <% if (request.getSession().getAttribute("piqueos") != null) {
+                    Hashtable piqueos = (Hashtable) request.getSession().getAttribute("piqueos");
+                    Enumeration com = piqueos.elements();
+                    boolean empty = false;
+
+                    while (com.hasMoreElements()) {
+                        Piqueos aux = (Piqueos) com.nextElement();
+
+                        Enumeration lineas = aux.getProductos().elements();
+
+                        if (aux.getEstado() == "No procesado") {
+                            while (lineas.hasMoreElements()) {
+                                LineaDePiqueo lin = (LineaDePiqueo) lineas.nextElement();
+
+            %>             
+
+            <div class="row item">
+
+                <div class="col-xs-6 col-sm-6 cell text">
+                    <h4><%=lin.getNombre()%>></h4>                         
+
+                </div>
+                <div class="col-xs-3 col-sm-2 cell input">
+                    <strong>Cantidad:</strong><div class="clearfix"></div>
+                    <input type="text" readonly="" class="form-control input-sm input-cant" value="<%=lin.getCantidad()%>"><div class="clearfix"></div>
+                </div>                
+
+            </div><!-- /.item -->
+            <% }
+
+                    } else {
+                        empty = true;
+                    }
+                }
+                if (empty) { %>
+            <div class="well well-lg"><strong>No Hay Compras Pendientes</strong></div>
+            <% }
+                }
+            %>
 
 
-            
+
         </div><!-- /.container -->
         <div class="footer navbar-inverse">
             <div class="container">
@@ -97,11 +140,6 @@
         </div>
         <script src="js/jquery-1.11.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
-        <script src="js/administration.js"></script>
-        <script> $(".alert").alert()</script>
-
-
-
     </body>
 </html>
 <% }%>

@@ -39,12 +39,13 @@ CREATE TABLE `compras` (
 
 CREATE
 DEFINER=`root`@`localhost`
-TRIGGER `tpjspferreteria`.`bajarstock`
+TRIGGER `tpjspferreteria`.`baja`
 BEFORE UPDATE ON `tpjspferreteria`.`compras`
 FOR EACH ROW
 BEGIN
 	if NEW.estado = 3 then
 		call bajarstock(NEW.idCompras);
+		call generapiqueo(NEW.idCompras);
 	end if;
   END
 $$
@@ -74,15 +75,19 @@ CREATE TABLE `piqueos` (
 
 CREATE PROCEDURE bajarstock (in idComp INT)
 begin
-declare est int;
-declare maxid int;
 update productos p 
 inner join prodxcomp l
 on p.idProductos = l.idProd and l.idCompra = idComp
 set p.stock = p.stock-l.cantidad;
+end $$
+
+create procedure generapiqueo( in idComp INT)
+begin
+declare est int;
+declare maxid int;
 select max(idpiqueo) into maxid from piqueos;
 select estado into est from piqueos where idpiqueo = maxid limit 1;
-if est = null then	-- si el estado es null pque no hay crea el primer piqueo
+if maxid = null then	-- si el estado es null pque no hay crea el primer piqueo
 	insert into piqueos(idpiqueo,idCompras,estado) VALUES (1,idComp,1); 
 end if;
 if est = 1 then	-- si el estado del ultimo piqueo es 1 significa que no esta procesado y lo agrega

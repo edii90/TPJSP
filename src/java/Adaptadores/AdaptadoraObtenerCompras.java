@@ -36,14 +36,15 @@ public class AdaptadoraObtenerCompras extends HttpServlet {
 
         try {
             Usuarios user = (Usuarios)request.getSession().getAttribute("user");
-            Hashtable compras;
+            Hashtable compras= null;
+            
             if(user.getTipoUsr() == 1){
                 compras = Ccompras.ObtenerCabezeraCompras();
                 request.getSession().setAttribute("Compras",compras );
             
             } else {              
                 compras = Ccompras.ObtenerCabezeraCompras(user);
-                request.getSession().setAttribute("Compras", compras );            
+                request.getSession().setAttribute("Compras",compras);            
             }
             
         } catch (Exception ex) {
