@@ -90,8 +90,8 @@
             </div>
             <% } %>
 
-            <% if (request.getSession().getAttribute("piqueos") != null) {
-                    Hashtable piqueos = (Hashtable) request.getSession().getAttribute("piqueos");
+            <% if (request.getAttribute("piqueos") != null) {
+                    Hashtable piqueos = (Hashtable) request.getAttribute("piqueos");
                     Enumeration com = piqueos.elements();
                     boolean empty = false;
 
@@ -109,7 +109,7 @@
             <div class="row item">
 
                 <div class="col-xs-6 col-sm-6 cell text">
-                    <h4><%=lin.getNombre()%>></h4>                         
+                    <h4><%=lin.getNombre()%></h4>                         
 
                 </div>
                 <div class="col-xs-3 col-sm-2 cell input">
