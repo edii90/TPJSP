@@ -76,7 +76,7 @@ public class DAOpiqueo extends coneccionBD {
         
         try{
             super.conectar();
-            String sql = "update piqueo set estado = 2 where idpiqueo="+piqueo;
+            String sql = "UPDATE `piqueos` SET `estado`='2' WHERE `idpiqueo`='" + piqueo + "';";
             PreparedStatement ps = Sentencia(sql);
             ConsultaSinResultado(ps);
         } catch (Exception ex) {

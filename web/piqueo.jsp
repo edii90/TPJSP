@@ -94,7 +94,7 @@
             <% if (request.getAttribute("piqueos") != null) {
                     Hashtable piqueos = (Hashtable) request.getAttribute("piqueos");
                     Enumeration com = piqueos.elements();
-                    boolean empty = false;
+                    boolean empty = true;
 
                     while (com.hasMoreElements()) {
                         Piqueos aux = (Piqueos) com.nextElement();%>
@@ -115,14 +115,15 @@
             </div><!-- /.item -->
             <% }
 
+                        empty = false;
                     } else {
-                        empty = true;
+                       // empty = true;
                     }
                 }
                 if (empty) { %>
-            <div style="text-align: center; margin-bottom: 15px"><input type="button" value="Confirmar Piqueo" name="Confirmar" id="confirmar" class="btn btn-confirmar btn-lg" /></div>
-            <div class="well well-lg"><strong>No Hay Compras Pendientes</strong></div>
-            <% }
+                    <div style="text-align: center; margin-bottom: 15px"><input type="button" value="Confirmar Piqueo" name="Confirmar" id="confirmar" class="btn btn-confirmar btn-lg" /></div>
+                    <div class="well well-lg"><strong>No Hay Piqueos Pendientes</strong></div>
+                <% }
                 }
             %>
 
