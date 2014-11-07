@@ -10,7 +10,7 @@ CREATE TABLE `productos` (
   `stock` int(11) unsigned NOT NULL,
   `imagen` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`idProductos`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=latin1$$
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1$$
 
 CREATE TABLE `usuarios` (
   `usuario` varchar(20) COLLATE latin1_spanish_ci NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE `usuarios` (
   PRIMARY KEY (`idUsr`),
   UNIQUE KEY `DNI_UNIQUE` (`DNI`),
   UNIQUE KEY `idUsr_UNIQUE` (`idUsr`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci$$
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci$$
 
 CREATE TABLE `compras` (
   `estado` int(1) NOT NULL DEFAULT '1',
@@ -35,7 +35,7 @@ CREATE TABLE `compras` (
   PRIMARY KEY (`idCompras`),
   KEY `idUsuario_idx` (`idUsuario`),
   CONSTRAINT `idUsuario` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsr`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=latin1$$
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1$$
 
 CREATE
 DEFINER=`root`@`localhost`
@@ -61,7 +61,7 @@ CREATE TABLE `prodxcomp` (
   KEY `idProd_idx` (`idProd`),
   CONSTRAINT `idCompra` FOREIGN KEY (`idCompra`) REFERENCES `compras` (`idCompras`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idProd` FOREIGN KEY (`idProd`) REFERENCES `productos` (`idProductos`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=latin1$$
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1$$
 
 CREATE TABLE `piqueos` (
   `idpiqueo` int(11) NOT NULL,
@@ -126,4 +126,7 @@ INSERT INTO usuarios(usuario,pass,dni,nombre,apellido,tipo)VALUES('charlie','cha
 INSERT INTO usuarios(usuario,pass,dni,nombre,apellido,tipo)VALUES('fede','fede',67890,'Federico','Muñoz',2);$$
 INSERT INTO usuarios(usuario,pass,dni,nombre,apellido,tipo)VALUES('edii','edii',7890,'edii','edii',2);$$
 INSERT INTO usuarios(usuario,pass,dni,nombre,apellido,tipo)VALUES('matute','matute',890,'matute','matute',2);$$
+INSERT INTO compras(estado,idCompras,idUsuario,fecha,total)VALUES(3,1,1,'20141007152017',300)$$
+INSERT INTO prodxcomp(idCompra,idProd,cantidad,precioUnit,idLinea)VALUES(1,8,5,60,1)$$
+INSERT INTO piqueos(idpiqueo,idCompras,estado,fecha)VALUES(1,1,2,'20141007152017')$$
 commit;$$

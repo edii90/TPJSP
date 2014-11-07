@@ -116,14 +116,13 @@
             <% }
 
                         empty = false;
-                    } else {
-                       // empty = true;
                     }
                 }
-                if (empty) { %>
-                    <div style="text-align: center; margin-bottom: 15px"><input type="button" value="Confirmar Piqueo" name="Confirmar" id="confirmar" class="btn btn-confirmar btn-lg" /></div>
-                    <div class="well well-lg"><strong>No Hay Piqueos Pendientes</strong></div>
-                <% }
+                if (empty) { 
+                    out.println("<div class='well well-lg'><strong>No Hay Piqueos Pendientes</strong></div>");
+                    out.println("<div style='text-align: center; margin-bottom: 15px'><input type='button' value='Confirmar Piqueo' name='Confirmar' id='confirmar' class='btn btn-confirmar btn-lg disabled' /></div>");
+                
+                }
                 }
             %>
 
