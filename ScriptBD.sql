@@ -99,25 +99,25 @@ end if;
 end$$
 
 start transaction;$$
-INSERT INTO productos(nombre,precio,stock)VALUES('pernos',10,500);$$
-INSERT INTO productos(nombre,precio,stock)VALUES('picoloro',50,200);$$
-INSERT INTO productos(nombre,precio,stock)VALUES('tenza',45,300); $$
-INSERT INTO productos(nombre,precio,stock)VALUES('juego de tubos',80,20);$$
-INSERT INTO productos(nombre,precio,stock)VALUES('atornillador automatico',250,10);$$
-INSERT INTO productos(nombre,precio,stock)VALUES('llave de presion',40,100);$$
-INSERT INTO productos(nombre,precio,stock)VALUES('lijadora',210,20);$$
-INSERT INTO productos(nombre,precio,stock)VALUES('serrucho',60,100);$$
-INSERT INTO productos(nombre,precio,stock)VALUES('sierra',50,200);$$
-INSERT INTO productos(nombre,precio,stock)VALUES('cinta metrica',15,300);$$
-INSERT INTO productos(nombre,precio,stock)VALUES('clavos',12,1000);$$
-INSERT INTO productos(nombre,precio,stock)VALUES('tornillos',15,1000);$$
-INSERT INTO productos(nombre,precio,stock)VALUES('amoladora',300,20);$$
-INSERT INTO productos(nombre,precio,stock)VALUES('Taladro',320,200);$$
-INSERT INTO productos(nombre,precio,stock)VALUES('caladora',270,20);$$
-INSERT INTO productos(nombre,precio,stock)VALUES('circular',350,20);$$
-INSERT INTO productos(nombre,precio,stock)VALUES('martillo',35,100);$$
-INSERT INTO productos(nombre,precio,stock)VALUES('pincel',17,100);$$
-INSERT INTO productos(nombre,precio,stock)VALUES('pinza',28,100);$$
+INSERT INTO productos(nombre,precio,stock,imagen)VALUES('pernos',10,500,'img/noimage.jpg');$$
+INSERT INTO productos(nombre,precio,stock,imagen)VALUES('picoloro',50,200,'img/noimage.jpg');$$
+INSERT INTO productos(nombre,precio,stock,imagen)VALUES('tenza',45,300,'img/noimage.jpg'); $$
+INSERT INTO productos(nombre,precio,stock,imagen)VALUES('juego de tubos',80,20,'img/noimage.jpg');$$
+INSERT INTO productos(nombre,precio,stock,imagen)VALUES('atornillador automatico',250,10,'img/noimage.jpg');$$
+INSERT INTO productos(nombre,precio,stock,imagen)VALUES('llave de presion',40,100,'img/noimage.jpg');$$
+INSERT INTO productos(nombre,precio,stock,imagen)VALUES('lijadora',210,20,'img/noimage.jpg');$$
+INSERT INTO productos(nombre,precio,stock,imagen)VALUES('serrucho',60,100,'img/noimage.jpg');$$
+INSERT INTO productos(nombre,precio,stock,imagen)VALUES('sierra',50,200,'img/noimage.jpg');$$
+INSERT INTO productos(nombre,precio,stock,imagen)VALUES('cinta metrica',15,300,'img/noimage.jpg');$$
+INSERT INTO productos(nombre,precio,stock,imagen)VALUES('clavos',12,1000,'img/noimage.jpg');$$
+INSERT INTO productos(nombre,precio,stock,imagen)VALUES('tornillos',15,1000,'img/noimage.jpg');$$
+INSERT INTO productos(nombre,precio,stock,imagen)VALUES('amoladora',300,20,'img/noimage.jpg');$$
+INSERT INTO productos(nombre,precio,stock,imagen)VALUES('Taladro',320,200,'img/noimage.jpg');$$
+INSERT INTO productos(nombre,precio,stock,imagen)VALUES('caladora',270,20,'img/noimage.jpg');$$
+INSERT INTO productos(nombre,precio,stock,imagen)VALUES('circular',350,20,'img/noimage.jpg');$$
+INSERT INTO productos(nombre,precio,stock,imagen)VALUES('martillo',35,100,'img/noimage.jpg');$$
+INSERT INTO productos(nombre,precio,stock,imagen)VALUES('pincel',17,100,'img/noimage.jpg');$$
+INSERT INTO productos(nombre,precio,stock,imagen)VALUES('pinza',28,100,'img/noimage.jpg');$$
 INSERT INTO usuarios(usuario,pass,dni,nombre,apellido,tipo)VALUES('admin','admin',12345678,'admin','admin',1);$$
 INSERT INTO usuarios(usuario,pass,dni,nombre,apellido,tipo)VALUES('user','user',2345678,'user','user',2);$$
 INSERT INTO usuarios(usuario,pass,dni,nombre,apellido,tipo)VALUES('lean','1234',3456789,'leandro','santillan',2);$$
