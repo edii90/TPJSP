@@ -81,7 +81,8 @@
         </div><!-- /.navbar -->
 
         <div class="container"> 
-            <h1 class="page-header">Administrar Piqueos</h1>
+            <h1 class="page-header">Administrar Piqueos</h1>        
+
             <% if (session.getAttribute("MsjPiqueos") != null) {%>
             <div class="alert alert-info" role="alert" >
                 <% String msj = (String) session.getAttribute("MsjPiqueos");
@@ -96,27 +97,21 @@
                     boolean empty = false;
 
                     while (com.hasMoreElements()) {
-                        Piqueos aux = (Piqueos) com.nextElement();
+                        Piqueos aux = (Piqueos) com.nextElement();%>
+            <div style="text-align: center; margin-bottom: 15px"><input type="button" data-id="<%=aux.getId()%>" value="Confirmar Piqueo #<%=aux.getId()%>" name="Confirmar" id="confirmar" class="btn btn-confirmar btn-lg" /> </div>
+                <%
 
-                        Enumeration lineas = aux.getProductos().elements();
+                    Enumeration lineas = aux.getProductos().elements();
 
-                        if (aux.getEstado() == "No procesado") {
-                            while (lineas.hasMoreElements()) {
-                                LineaDePiqueo lin = (LineaDePiqueo) lineas.nextElement();
+                    if (aux.getEstado() == "No procesado") {
+                        while (lineas.hasMoreElements()) {
+                            LineaDePiqueo lin = (LineaDePiqueo) lineas.nextElement();
 
-            %>             
+                %>             
 
-            <div class="row item">
-
-                <div class="col-xs-6 col-sm-6 cell text">
-                    <h4><%=lin.getNombre()%></h4>                         
-
-                </div>
-                <div class="col-xs-3 col-sm-2 cell input">
-                    <strong>Cantidad:</strong><div class="clearfix"></div>
-                    <input type="text" readonly="" class="form-control input-sm input-cant" value="<%=lin.getCantidad()%>"><div class="clearfix"></div>
-                </div>                
-
+            <div class="row item" style="display: inline-block; text-align: center">
+                <h4><%=lin.getNombre()%></h4>  
+                Cantidad:<input type="text" readonly="" class="form-control input-sm input-cant" value="<%=lin.getCantidad()%>"><div class="clearfix"></div>
             </div><!-- /.item -->
             <% }
 
@@ -125,6 +120,7 @@
                     }
                 }
                 if (empty) { %>
+            <div style="text-align: center; margin-bottom: 15px"><input type="button" value="Confirmar Piqueo" name="Confirmar" id="confirmar" class="btn btn-confirmar btn-lg" /></div>
             <div class="well well-lg"><strong>No Hay Compras Pendientes</strong></div>
             <% }
                 }
@@ -140,6 +136,7 @@
         </div>
         <script src="js/jquery-1.11.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
+        <script src="js/piqueos.js"></script>
     </body>
 </html>
 <% }%>
