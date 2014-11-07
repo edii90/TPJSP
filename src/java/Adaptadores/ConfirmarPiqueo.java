@@ -51,7 +51,7 @@ public class ConfirmarPiqueo extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
            boolean rta = false;
-           int idpiqueo = Integer.parseInt(request.getAttribute("id").toString());
+           int idpiqueo = Integer.parseInt(request.getParameter("idp"));
            rta = Cpiqueo.ConfirmarPiqueo(idpiqueo);
            
            if(rta)

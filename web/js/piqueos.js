@@ -2,7 +2,7 @@ $(function() {
     var idpiqueo = "";
     
     $('#confirmar').on('click', function() {
-        idpiqueo = $(this).attr("data-id");
-            $.post('ConfirmarPiqueo', {id: idpiqueo}, function(data){window.location = data;});
+        idpiqueo = $("#confirmar").attr("data-id");
+            $.post('ConfirmarPiqueo', {idp: idpiqueo}, function(data){window.location = data;});
     });
 });
